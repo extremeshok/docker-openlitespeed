@@ -31,9 +31,15 @@ RUN echo "*** house keeping ***" \
   && rm -rf /tmp/* \
   && rm -rf /var/lib/apt/lists/*
 
+RUN echo "*** Configure logging ***" \
+&& ln -sf /dev/stdout /usr/local/lsws/logs/access.log \
+&& ln -sf /dev/stderr /usr/local/lsws/logs/error.log
+
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN echo "**** Fix permissions ****" \
-  && mkdir -p /var/www/vhosts/localhost/{html,logs,certs} \
+  && mkdir -p /var/www/vhosts/localhost/html \
+  && mkdir -p /var/www/vhosts/localhost/logs \
+  && mkdir -p /var/www/vhosts/localhost/certs \
   && chown -R nobody:nogroup /var/www/vhosts/
 
 COPY rootfs/ /
