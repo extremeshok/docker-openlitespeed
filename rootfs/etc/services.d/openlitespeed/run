@@ -8,4 +8,8 @@ if [ -f /xshok-init.sh ] ; then
 fi
 
 # s6-nice used to set the nice value of openlitespeed to -10, will warn if it cannot be set
-/bin/s6-nice -I -n -10 /usr/local/lsws/bin/openlitespeed -d
+#/bin/s6-nice -I -n -10 /usr/local/lsws/bin/openlitespeed -d
+
+/bin/s6-nice -I -n -10 /usr/local/lsws/bin/openlitespeed -n
+
+#exec sh /var/lib/litespeed/bin/lswsctrl start
