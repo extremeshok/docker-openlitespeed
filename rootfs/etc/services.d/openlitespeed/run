@@ -12,10 +12,11 @@ fi
 
 #/bin/s6-nice -I -n -10 /usr/local/lsws/bin/openlitespeed -d
 
-sh /var/lib/litespeed/bin/lswsctrl start
-while true; do
-  if ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; then
-		break
-	fi
-	sleep 60
-done
+exec /usr/local/lsws/bin/openlitespeed -d
+#
+# while true; do
+#   if ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; then
+# 		break
+# 	fi
+# 	sleep 60
+# done
