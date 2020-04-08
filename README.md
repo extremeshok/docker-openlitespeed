@@ -2,6 +2,7 @@
 
 * Ubuntu 18.04 with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
+* Optimized OpenLiteSpeed configs
 * OpenLiteSpeed Repository
 * IONICE set to -10
 * Low memory usage
