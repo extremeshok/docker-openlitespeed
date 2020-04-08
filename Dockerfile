@@ -17,9 +17,6 @@ RUN echo "**** Install OpenLiteSpeed  ****" \
 
 # BUG: lsphp73 is marked as a dependancy.. we will ignore this... a bug has been filed : https://github.com/litespeedtech/openlitespeed/issues/170
 
-RUN echo "**** configure ****"
-COPY rootfs/ /
-
 # Update ca-certificates
 RUN echo "**** Update ca-certificates ****" \
   && update-ca-certificates

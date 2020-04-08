@@ -1,6 +1,6 @@
 #!/usr/bin/execlineb -S1
 
-exec sh /var/lib/litespeed/bin/lswsctrl stop
+#exec sh /var/lib/litespeed/bin/lswsctrl stop
 
 # only tell s6 to bring down the entire container, if it isn't already doing so
 # http://skarnet.org/software/s6/s6-supervise.html

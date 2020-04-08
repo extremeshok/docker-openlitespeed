@@ -1,0 +1,38 @@
+version: '3.0'
+########## SERVICES ########
+services:
+#
+# In this example the system is running under HTTPS (ssl)
+# Certificate is created via the acme container using letsencrypt
+#
+###### xshok-php
+    phpfpm:
+      image: extremeshok/php-ubuntu:latest
+      depends_on:
+        - redis
+      volumes:
+        # volume mounts
+        - vol-www-html:/var/www/html/:rw
+      environment:
+      #optional enviromental varibles
+        - TZ=${TZ}
+        - PHP_TIMEZONE=UTC
+        - HOSTNAME=${HOSTNAME}
+        - PHP_REDIS_SESSIONS=yes
+        - PHP_REDIS_HOST=redis
+        - PHP_REDIS_PORT=6379
+        - PHP_EXTRA_EXTENSIONS="exif,ftp"
+        * PHP_MAX_TIME=32
+        * PHP_MAX_TIME=300
+        * PHP_MEMORY_LIMIT=256
+        * PHP_DISABLE_FUNCTIONS=shell_exe
+      restart: always
+      sysctls:
+        - net.ipv6.conf.all.disable_ipv6=${SYSCTL_IPV6_DISABLED:-0}
+      dns:
+        - ${IPV4_NETWORK:-172.22.1}.254
+      networks:
+        network:
+          ipv4_address: ${IPV4_NETWORK:-172.22.1}.240
+          aliases:
+          - xshok-php
