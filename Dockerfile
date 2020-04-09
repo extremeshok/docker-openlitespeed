@@ -19,7 +19,8 @@ RUN echo "**** Install OpenLiteSpeed  ****" \
 
 RUN echo "**** Create symbolic links ****" \
   && rm -rf /etc/openlitespeed \
-  && ln -s /usr/local/lsws/conf/ /etc/openlitespeed \
+  && mkdir -p /etc/openlitespeed \
+  && ln -s /usr/local/lsws/conf/ /etc/openlitespeed/conf \
   && ln -s /usr/local/lsws/admin/conf/ /etc/openlitespeed/admin
 
 # Update ca-certificates
@@ -47,9 +48,10 @@ RUN echo "**** Fix permissions ****" \
 COPY rootfs/ /
 
 RUN echo "*** Backup OpenLiteSpeed Configs ***" \
-  && mkdir -p  /usr/local/lsws/default-config/admin \
-  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default-config \
-  && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default-config/admin
+  && mkdir -p  /usr/local/lsws/default/conf \
+  && mkdir -p  /usr/local/lsws/default/admin \
+  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default/conf \
+  && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default/admin
 
 WORKDIR /var/www/vhosts/localhost/
 
