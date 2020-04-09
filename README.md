@@ -1,5 +1,7 @@
 # eXtremeSHOK.com Docker OpenLiteSpeed with mod_security and pagespeed on Ubuntu 18.04
 
+## This is a base image used by the extremeshok/openlitespeed-php image
+
 * Ubuntu 18.04 with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
 * Optimized OpenLiteSpeed configs
