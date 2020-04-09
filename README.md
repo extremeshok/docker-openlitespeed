@@ -12,6 +12,8 @@
 * Graceful shutdown
 * accesslog = stdout
 * errorlog = stderr
+* configs located in /etc/openlitespeed/
+* default configs will be added if the config dir is empty
 
 # Included Modules:
 * cache

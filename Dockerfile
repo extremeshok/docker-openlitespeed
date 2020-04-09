@@ -6,7 +6,7 @@ USER root
 RUN echo "**** Install packages ****" \
   && apt-install gnupg gnupg-utils netcat less
 
-RUN  echo "**** Add OpenLiteSpeed Repo ****" \
+RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && wget https://rpms.litespeedtech.com/debian/lst_repo.gpg -O /usr/local/src/lst_repo.gpg \
   && apt-key add /usr/local/src/lst_repo.gpg \
   && CODENAME=$(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) \
@@ -16,6 +16,11 @@ RUN echo "**** Install OpenLiteSpeed  ****" \
   && apt-install openlitespeed ols-modsecurity ols-pagespeed
 
 # BUG: lsphp73 is marked as a dependancy.. we will ignore this... a bug has been filed : https://github.com/litespeedtech/openlitespeed/issues/170
+
+RUN echo "**** Create symbolic links ****" \
+  && rm -rf /etc/openlitespeed \
+  && ln -s /usr/local/lsws/conf/ /etc/openlitespeed \
+  && ln -s /usr/local/lsws/admin/conf/ /etc/openlitespeed/admin
 
 # Update ca-certificates
 RUN echo "**** Update ca-certificates ****" \
@@ -29,8 +34,8 @@ RUN echo "*** house keeping ***" \
   && rm -rf /var/lib/apt/lists/*
 
 RUN echo "*** Configure logging ***" \
-&& ln -sf /dev/stdout /usr/local/lsws/logs/access.log \
-&& ln -sf /dev/stderr /usr/local/lsws/logs/error.log
+  && ln -sf /dev/stdout /usr/local/lsws/logs/access.log \
+  && ln -sf /dev/stderr /usr/local/lsws/logs/error.log
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN echo "**** Fix permissions ****" \
@@ -40,6 +45,11 @@ RUN echo "**** Fix permissions ****" \
   && chown -R nobody:nogroup /var/www/vhosts/
 
 COPY rootfs/ /
+
+RUN echo "*** Backup OpenLiteSpeed Configs ***" \
+  && mkdir -p  /usr/local/lsws/default-config/admin \
+  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default-config \
+  && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default-config/admin
 
 WORKDIR /var/www/vhosts/localhost/
 
