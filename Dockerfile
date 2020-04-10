@@ -15,6 +15,8 @@ RUN echo "**** Add OpenLiteSpeed Repo ****" \
 RUN echo "**** Install OpenLiteSpeed  ****" \
   && apt-install openlitespeed ols-modsecurity ols-pagespeed
 
+# BUG: lsphp73 is marked as a dependancy.. we will ignore this... a bug has been filed : https://github.com/litespeedtech/openlitespeed/issues/170
+
 RUN echo "**** Install and configure modsecurity owasp  ****" \
   && mkdir -p /usr/local/lsws/conf/modsecurity \
   && cd /usr/local/lsws/conf/modsecurity \
@@ -23,7 +25,6 @@ RUN echo "**** Install and configure modsecurity owasp  ****" \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
 
-# BUG: lsphp73 is marked as a dependancy.. we will ignore this... a bug has been filed : https://github.com/litespeedtech/openlitespeed/issues/170
 
 RUN echo "**** Create symbolic links ****" \
   && rm -rf /etc/openlitespeed \
