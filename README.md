@@ -14,6 +14,7 @@
 * errorlog = stderr
 * configs located in /etc/openlitespeed/
 * default configs will be added if the config dir is empty
+* OWASP modsecurity rules enabled
 
 # Included Modules:
 * cache

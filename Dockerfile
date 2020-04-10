@@ -4,7 +4,7 @@ LABEL mantainer="Adrian Kriel <admin@extremeshok.com>" vendor="eXtremeSHOK.com"
 USER root
 
 RUN echo "**** Install packages ****" \
-  && apt-install gnupg gnupg-utils netcat less
+  && apt-install gnupg gnupg-utils netcat less git
 
 RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && wget https://rpms.litespeedtech.com/debian/lst_repo.gpg -O /usr/local/src/lst_repo.gpg \
@@ -14,6 +14,14 @@ RUN echo "**** Add OpenLiteSpeed Repo ****" \
 
 RUN echo "**** Install OpenLiteSpeed  ****" \
   && apt-install openlitespeed ols-modsecurity ols-pagespeed
+
+RUN echo "**** Install and configure modsecurity owasp  ****" \
+  && mkdir -p /usr/local/lsws/conf/modsecurity \
+  && cd /usr/local/lsws/conf/modsecurity \
+  && git clone --recursive --depth=1 https://github.com/SpiderLabs/owasp-modsecurity-crs.git \
+  && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/crs-setup.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/crs-setup.conf \
+  && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf \
+  && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
 
 # BUG: lsphp73 is marked as a dependancy.. we will ignore this... a bug has been filed : https://github.com/litespeedtech/openlitespeed/issues/170
 
