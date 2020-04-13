@@ -12,6 +12,16 @@ RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && CODENAME=$(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) \
   && echo "deb http://rpms.litespeedtech.com/debian/ ${CODENAME} main" >> /etc/apt/sources.list
 
+RUN echo "**** Create symbolic links ****" \
+  && rm -rf /etc/openlitespeed \
+  && rm -rf /usr/local/lsws \
+  && mkdir -p /etc/openlitespeed/conf \
+  && mkdir -p /usr/local/lsws/conf \
+  && mkdir -p /etc/openlitespeed/admin \
+  && mkdir -p /usr/local/lsws/admin/conf \
+  && ln -s /etc/openlitespeed/conf /usr/local/lsws/conf \
+  && ln -s /etc/openlitespeed/admin /usr/local/lsws/admin/conf
+
 RUN echo "**** Install OpenLiteSpeed  ****" \
   && apt-install openlitespeed ols-modsecurity ols-pagespeed
 
@@ -24,13 +34,6 @@ RUN echo "**** Install and configure modsecurity owasp  ****" \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/crs-setup.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/crs-setup.conf \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
-
-
-RUN echo "**** Create symbolic links ****" \
-  && rm -rf /etc/openlitespeed \
-  && mkdir -p /etc/openlitespeed \
-  && ln /usr/local/lsws/conf /etc/openlitespeed/conf \
-  && ln /usr/local/lsws/admin/conf /etc/openlitespeed/admin
 
 # Update ca-certificates
 RUN echo "**** Update ca-certificates ****" \
