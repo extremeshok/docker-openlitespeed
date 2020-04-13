@@ -29,8 +29,8 @@ RUN echo "**** Install and configure modsecurity owasp  ****" \
 RUN echo "**** Create symbolic links ****" \
   && rm -rf /etc/openlitespeed \
   && mkdir -p /etc/openlitespeed \
-  && ln -s /usr/local/lsws/conf/ /etc/openlitespeed/conf \
-  && ln -s /usr/local/lsws/admin/conf/ /etc/openlitespeed/admin
+  && ln -s /usr/local/lsws/conf /etc/openlitespeed/conf \
+  && ln -s /usr/local/lsws/admin/conf /etc/openlitespeed/admin
 
 # Update ca-certificates
 RUN echo "**** Update ca-certificates ****" \
