@@ -60,9 +60,8 @@ RUN echo "**** Fix permissions ****" \
 COPY rootfs/ /
 
 RUN echo "*** Backup OpenLiteSpeed Configs ***" \
-  && mkdir -p  /usr/local/lsws/default/conf \
   && mkdir -p  /usr/local/lsws/default/admin \
-  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default/conf \
+  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default \
   && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default/admin
 
 WORKDIR /var/www/vhosts/localhost/
