@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+# restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected
+
+while inotifywait -e modify /var/www/vhosts/*/certs/ ; do
+	echo "Change detected waiting 60seconds"
+  sleep 60
+	/usr/local/lsws/bin/lswsctrl restart
+done

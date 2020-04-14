@@ -15,6 +15,7 @@
 * configs located in /etc/openlitespeed/
 * default configs will be added if the config dir is empty
 * OWASP modsecurity rules enabled
+* Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
 
 # Included Modules:
 * cache
