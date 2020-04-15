@@ -57,8 +57,8 @@ RUN echo "*** Backup OpenLiteSpeed Configs ***" \
 
 RUN echo "**** Create symbolic links ****" \
   && rm -rf /etc/openlitespeed \
-  && rm -rf  /usr/local/lsws/ \
-  && rm -rf  /usr/local/lsws/admin \
+  && rm -rf  /usr/local/lsws/conf \
+  && rm -rf  /usr/local/lsws/admin/conf \
   && mkdir -p /etc/openlitespeed/conf \
   && mkdir -p /etc/openlitespeed/admin \
   && ln -s /etc/openlitespeed/conf /usr/local/lsws/conf \
