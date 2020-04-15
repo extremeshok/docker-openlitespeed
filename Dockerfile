@@ -12,16 +12,6 @@ RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && CODENAME=$(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) \
   && echo "deb http://rpms.litespeedtech.com/debian/ ${CODENAME} main" >> /etc/apt/sources.list
 
-RUN echo "**** Create symbolic links ****" \
-  && rm -rf /etc/openlitespeed \
-  && rm -rf /usr/local/lsws \
-  && mkdir -p /etc/openlitespeed/conf \
-  && mkdir -p /usr/local/lsws/conf \
-  && mkdir -p /etc/openlitespeed/admin \
-  && mkdir -p /usr/local/lsws/admin/conf \
-  && ln -s /etc/openlitespeed/conf /usr/local/lsws/conf \
-  && ln -s /etc/openlitespeed/admin /usr/local/lsws/admin/conf
-
 RUN echo "**** Install OpenLiteSpeed  ****" \
   && apt-install openlitespeed ols-modsecurity ols-pagespeed
 
@@ -61,8 +51,18 @@ COPY rootfs/ /
 
 RUN echo "*** Backup OpenLiteSpeed Configs ***" \
   && mkdir -p  /usr/local/lsws/default/admin \
-  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default \
+  && mkdir -p  /usr/local/lsws/default/conf \
+  && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default/conf \
   && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default/admin
+
+RUN echo "**** Create symbolic links ****" \
+  && rm -rf /etc/openlitespeed \
+  && rm -rf  /usr/local/lsws/ \
+  && rm -rf  /usr/local/lsws/admin \
+  && mkdir -p /etc/openlitespeed/conf \
+  && mkdir -p /etc/openlitespeed/admin \
+  && ln -s /etc/openlitespeed/conf /usr/local/lsws/conf \
+  && ln -s /etc/openlitespeed/admin /usr/local/lsws/admin/conf
 
 WORKDIR /var/www/vhosts/localhost/
 
