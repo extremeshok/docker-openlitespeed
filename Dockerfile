@@ -52,8 +52,10 @@ COPY rootfs/ /
 RUN echo "*** Backup OpenLiteSpeed Configs ***" \
   && mkdir -p  /usr/local/lsws/default/admin \
   && mkdir -p  /usr/local/lsws/default/conf \
+  && mkdir -p  /usr/local/lsws/default/localhost \
   && cp -rf  /usr/local/lsws/conf/* /usr/local/lsws/default/conf \
-  && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default/admin
+  && cp -rf  /usr/local/lsws/admin/conf/* /usr/local/lsws/default/admin \
+  && cp -rf  /var/www/vhosts/localhost/* /usr/local/lsws/default/localhost
 
 RUN echo "**** Create symbolic links ****" \
   && rm -rf /etc/openlitespeed \
