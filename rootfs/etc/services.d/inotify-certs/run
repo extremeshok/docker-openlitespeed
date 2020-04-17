@@ -1,8 +1,9 @@
 #!/usr/bin/with-contenv bash
 # restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected
 
-while inotifywait -e modify /var/www/vhosts/*/certs/ ; do
-	echo "Change detected waiting 60seconds"
-  sleep 60
+# this is a work around to support files in new dirs (when a new website is added, it was not being watched)
+inotifywait -m --exclude "[^p][^e][^m]$" /var/www/vhosts/ -e create -e modify | while read dir action file; do
+	echo "The file ''${file}' appeared in directory '${dir}' via '${action} ..  waiting 60 seconds to graceful restart ";
+	sleep 60
 	/usr/local/lsws/bin/lswsctrl restart
 done
