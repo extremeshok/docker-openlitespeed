@@ -3,7 +3,9 @@
 
 # this is a work around to support files in new dirs (when a new website is added, it was not being watched)
 inotifywait -r -m --exclude "[^p][^e][^m]$" /var/www/vhosts/ -e modify -e create -e delete -e move | while read dir action file; do
-	echo "The file '${file}' appeared in directory '${dir}' via '${action} ..  waiting 60 seconds to graceful restart ";
-	sleep 60
-	/usr/local/lsws/bin/lswsctrl restart
+	if [ ! -d "${dir}${file}"  ] ; then
+		echo "Inotify:  '${dir}${file}' via '${action} ..  waiting 60 seconds to graceful restart ";
+		sleep 60
+		/usr/local/lsws/bin/lswsctrl restart
+	fi
 done
