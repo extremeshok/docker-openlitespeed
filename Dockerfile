@@ -68,7 +68,7 @@ RUN echo "**** Create symbolic links ****" \
 
 WORKDIR /var/www/vhosts/localhost/
 
-EXPOSE 80 443 443/udp 7080
+EXPOSE 80 443 443/udp 7080 8088
 
 # "when the SIGTERM signal is sent, it immediately quits and all established connections are closed"
 # "graceful stop is triggered when the SIGUSR1 signal is sent "
