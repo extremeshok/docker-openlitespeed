@@ -2,11 +2,16 @@
 # restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected
 
 # this is a work around to support files in new dirs (when a new website is added, it was not being watched)
-# double negative, so the exclude becomes an only include, only will include *.pem files
-inotifywait -r -m --exclude "[^p].[^e].[^m]$" /var/www/vhosts/ -e modify -e create -e delete -e move | while read dir action file; do
-	if [ ! -d "${dir}${file}" ] ; then
-		echo "Inotify:  '${dir}${file}' via '${action} ..  waiting 60 seconds to graceful restart ";
-		sleep 60
-		/usr/local/lsws/bin/lswsctrl restart
-	fi
+# double negative, so the exclude becomes an only include, only will include *.pem files in the non excluded directories (certs)
+
+while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; do
+	echo "Waiting for OpenLiteSpeed to start"
+  sleep 10s
+done
+
+while true ; do
+	inotifywait -r --exclude "\.[^p].[^e].[^m]$" --exclude ".*(\.git|\.private|private|html|public_html|www|db|dbinfo|log|logs|sql|backup|backups|conf|config|configs)/" /var/www/vhosts/ -e modify -e create -e delete -e move
+	echo "sleeping for 60s"
+	sleep 60s
+	/usr/local/lsws/bin/lswsctrl restart &
 done

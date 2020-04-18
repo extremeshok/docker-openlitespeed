@@ -1,8 +1,19 @@
 #!/usr/bin/with-contenv bash
 
+if [ -f /xshok-init-pre.sh ] ; then
+  echo "Launching init-pre"
+  bash /xshok-init-pre.sh
+fi
+
 if [ -f /xshok-init.sh ] ; then
-  while ! bash /xshok-init.sh ; do
-    echo "Waiting for init"
+  echo "Launching init"
+  bash /xshok-init.sh
+fi
+
+if [ -f /xshok-init-post.sh ] ; then
+  while true ; do
+    echo "Launching init-post"
+    bash /xshok-init-post.sh
     sleep 5s
   done
 fi
