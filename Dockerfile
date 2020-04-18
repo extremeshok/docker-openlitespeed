@@ -66,6 +66,9 @@ RUN echo "**** Create symbolic links ****" \
   && ln -s /etc/openlitespeed/conf /usr/local/lsws/conf \
   && ln -s /etc/openlitespeed/admin /usr/local/lsws/admin/conf
 
+RUN echo "**** Ensure there is no admin password ****" \
+  && rm -f /etc/openlitespeed/admin/htpasswd
+
 WORKDIR /var/www/vhosts/localhost/
 
 EXPOSE 80 443 443/udp 7080 8088
