@@ -66,6 +66,10 @@ RUN echo "**** Create symbolic links ****" \
   && ln -s /etc/openlitespeed/conf /usr/local/lsws/conf \
   && ln -s /etc/openlitespeed/admin /usr/local/lsws/admin/conf
 
+RUN echo "**** Correct permissions ****" \
+  && chown -R lsadm:lsadm /usr/local/lsws \
+  && chown -R nobody:nogroup /usr/local/lsws/logs/
+
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd
 

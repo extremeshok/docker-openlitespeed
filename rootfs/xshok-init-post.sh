@@ -19,6 +19,7 @@ fi
 if [ ! -f  "/etc/openlitespeed/conf/httpd_config.conf" ] || [ ! -f  "/etc/openlitespeed/admin/admin_config.conf" ] ; then
   cp -rf /usr/local/lsws/default/conf/* /etc/openlitespeed/conf/
   cp -rf /usr/local/lsws/default/admin/* /etc/openlitespeed/admin/
+  chown -R lsadm:lsadm /etc/openlitespeed
 fi
 
 # generate a random admin password, if one is not defined
