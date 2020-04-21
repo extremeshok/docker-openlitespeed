@@ -38,6 +38,7 @@ if [ "$XS_CRON_ENABLE" == "yes" ] || [ "$XS_CRON_ENABLE" == "true" ] || [ "$XS_C
 
           echo "Found: ${cron_file} in ${vhost} "
           cp -f "${cron_file}" "${TMP_CRON_DIR}/${filtered_vhost}-${filtered_cron_file_name}"
+          chmod +x "${TMP_CRON_DIR}/${filtered_vhost}-${filtered_cron_file_name}"
           echo "Generated: ${filtered_vhost}-${filtered_cron_file_name}"
 
         done < <(find "${my_vhost_dir}/cron" -mindepth 1 -maxdepth 1 -type f -print0)  #files
