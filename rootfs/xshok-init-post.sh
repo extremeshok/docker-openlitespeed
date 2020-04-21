@@ -7,13 +7,6 @@
 ## enable case insensitve matching
 shopt -s nocaseglob
 
-######  Generate crontab ######
-# busybox only allows for a single cron, all cron will be run as the nobody user
-if [ ! -f "/etc/cron.d/*" ] ; then
-  echo "Generating single crontab from cronjobs in /etc/cron.d/"
-  cat /etc/cron.d/* | crontab -u nobody -
-fi
-
 ######  Initialize Configs ######
 # Restore configs if they are missing, ie if a new/empty volume was used to store the configs
 if [ ! -f  "/etc/openlitespeed/conf/httpd_config.conf" ] || [ ! -f  "/etc/openlitespeed/admin/admin_config.conf" ] ; then
@@ -42,10 +35,16 @@ fi
 ###### Fix vhost permissions ######
 if [ -d "/var/www/vhosts" ] ; then
   echo "Fixing vhost permissions"
-  chmod 777 /var/www/vhosts
-  chmod 777 /var/www/vhosts/*
+  find "${VHOST_DIR}/*/html" -type f -exec chmod 0664 {} \;
+  find "${VHOST_DIR}/*/html" -type d -exec chmod 0775 {} \;
   chmod -R 640 /var/www/vhosts/*/certs/
+  echo "Setting vhost ownership"
+  chown -R nobody:nogroup "${VHOST_DIR}/*/html"
 fi
+
+##### Generate vhost cron on start
+echo "xshok-init-post.sh" >> /tmp/testing
+bash /xshok-generate-vhost-cron.sh
 
 ###### LAUNCH LITESPEEED SERVER ######
 /usr/local/lsws/bin/lswsctrl start

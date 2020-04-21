@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "cron.hourly" >> /tmp/testing
+
+bash /xshok-generate-vhost-cron.sh

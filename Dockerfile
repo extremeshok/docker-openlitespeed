@@ -4,7 +4,7 @@ LABEL mantainer="Adrian Kriel <admin@extremeshok.com>" vendor="eXtremeSHOK.com"
 USER root
 
 RUN echo "**** Install packages ****" \
-  && apt-install gnupg gnupg-utils netcat less git inotify-tools
+  && apt-install gnupg gnupg-utils netcat less git inotify-tools rsync
 
 RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && wget https://rpms.litespeedtech.com/debian/lst_repo.gpg -O /usr/local/src/lst_repo.gpg \
@@ -45,6 +45,7 @@ RUN echo "**** Fix permissions ****" \
   && mkdir -p /var/www/vhosts/localhost/html \
   && mkdir -p /var/www/vhosts/localhost/logs \
   && mkdir -p /var/www/vhosts/localhost/certs \
+  && mkdir -p /var/www/vhosts/localhost/cron \
   && chown -R nobody:nogroup /var/www/vhosts/
 
 COPY rootfs/ /
@@ -68,7 +69,11 @@ RUN echo "**** Create symbolic links ****" \
 
 RUN echo "**** Correct permissions ****" \
   && chown -R lsadm:lsadm /usr/local/lsws \
-  && chown -R nobody:nogroup /usr/local/lsws/logs/
+  && chown -R nobody:nogroup /usr/local/lsws/logs/ \
+  && chmod +x /etc/cron.hourly/generate-vhost-cron
+
+
+
 
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd

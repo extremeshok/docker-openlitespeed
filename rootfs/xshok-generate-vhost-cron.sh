@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+################################################################################
+# This is property of eXtremeSHOK.com
+# You are free to use, modify and distribute, however you may not remove this notice.
+# Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
+################################################################################
+#
+# Generate cron.d files from cron files located in the vhost/vhost_name/cron dirs
+#
+# Set CRON_ENABLE to "no" to disable
+#
+#################################################################################
+
+echo "xshok-generate-vhost-cron.sh" >> /tmp/testing
+
+XS_CRON_ENABLE=${CRON_ENABLE:-yes}
+
+VHOST_DIR="/var/www/vhosts"
+TMP_CRON_DIR="/tmp/xs_cron"
+CRON_DIR="/etc/cron.d"
+
+if [ "$XS_CRON_ENABLE" == "yes" ] || [ "$XS_CRON_ENABLE" == "true" ] || [ "$XS_CRON_ENABLE" == "on" ] || [ "$XS_CRON_ENABLE" == "1" ] ; then
+  echo "enabled" >> /tmp/testing
+
+  if [ -d "${VHOST_DIR}" ] ; then
+    echo "Generating cron files"
+    rm -rf "${TMP_CRON_DIR}"
+    mkdir -p "${TMP_CRON_DIR}"
+
+    while IFS= read -r -d '' vhost_dir; do
+      vhost="${vhost_dir##*/}"
+
+      if [ -d "${vhost_dir}/cron" ] ; then
+        echo "Found cron dir for ${vhost}"
+        while IFS= read -r -d '' cron_file ; do
+          cron_file_name=${cron_file##*/}
+          filtered_cron_file_name=${cron_file_name//\./_}
+          filtered_vhost=${vhost//\./_}
+
+          echo "Found: ${cron_file} in ${vhost} "
+          cp -f "${cron_file}" "${TMP_CRON_DIR}/${filtered_vhost}-${filtered_cron_file_name}"
+          echo "Generated: ${filtered_vhost}-${filtered_cron_file_name}"
+
+        done < <(find "${vhost_dir}/cron" -mindepth 1 -maxdepth 1 -type f -print0)  #files
+      fi
+      echo "${vhost} = ${short_vhost_dir}"
+    done < <(find "${VHOST_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
+    echo ""
+  fi
+
+  # rsync only if there are files
+  if [ -n "$(ls -A "${TMP_CRON_DIR}")" ]; then
+    echo "rsync" >> /tmp/testing
+    echo "Syncing generated files to ${CRON_DIR}"
+    rsync --dirs -v --checksum --delete --remove-source-files "${TMP_CRON_DIR}/" "${CRON_DIR}/"
+  fi
+fi
