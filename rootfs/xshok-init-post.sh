@@ -44,7 +44,7 @@ if [ -d "/var/www/vhosts" ] ; then
       chown -R nobody:nogroup "${my_vhost_dir}/certs"
       chmod -R 640 "${my_vhost_dir}/certs"
     fi
-  done < <(find "${VHOST_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
+  done < <(find "/var/www/vhosts" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
 fi
 
 ##### Generate vhost cron on start
