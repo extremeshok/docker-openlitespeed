@@ -34,12 +34,17 @@ fi
 
 ###### Fix vhost permissions ######
 if [ -d "/var/www/vhosts" ] ; then
-  echo "Fixing vhost permissions"
-  find "${VHOST_DIR}/*/html" -type f -exec chmod 0664 {} \;
-  find "${VHOST_DIR}/*/html" -type d -exec chmod 0775 {} \;
-  chmod -R 640 /var/www/vhosts/*/certs/
-  echo "Setting vhost ownership"
-  chown -R nobody:nogroup "${VHOST_DIR}/*/html"
+  while IFS= read -r -d '' my_vhost_dir; do
+    echo "Fixing vhost permissions"
+    if [ -d "${my_vhost_dir}/html" ] ; then
+      find "${my_vhost_dir}/html" -type f -exec chmod 0664 {} \;
+      find "${my_vhost_dir}/html" -type d -exec chmod 0775 {} \;
+    fi
+    if [ -d "${my_vhost_dir}/certs" ] ; then
+      chown -R nobody:nogroup "${my_vhost_dir}/certs"
+      chmod -R 640 "${my_vhost_dir}/certs"
+    fi
+  done < <(find "${VHOST_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
 fi
 
 ##### Generate vhost cron on start

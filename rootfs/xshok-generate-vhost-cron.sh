@@ -27,10 +27,9 @@ if [ "$XS_CRON_ENABLE" == "yes" ] || [ "$XS_CRON_ENABLE" == "true" ] || [ "$XS_C
     rm -rf "${TMP_CRON_DIR}"
     mkdir -p "${TMP_CRON_DIR}"
 
-    while IFS= read -r -d '' vhost_dir; do
-      vhost="${vhost_dir##*/}"
-
-      if [ -d "${vhost_dir}/cron" ] ; then
+    while IFS= read -r -d '' my_vhost_dir; do
+      vhost="${my_vhost_dir##*/}"
+      if [ -d "${my_vhost_dir}/cron" ] ; then
         echo "Found cron dir for ${vhost}"
         while IFS= read -r -d '' cron_file ; do
           cron_file_name=${cron_file##*/}
@@ -41,9 +40,8 @@ if [ "$XS_CRON_ENABLE" == "yes" ] || [ "$XS_CRON_ENABLE" == "true" ] || [ "$XS_C
           cp -f "${cron_file}" "${TMP_CRON_DIR}/${filtered_vhost}-${filtered_cron_file_name}"
           echo "Generated: ${filtered_vhost}-${filtered_cron_file_name}"
 
-        done < <(find "${vhost_dir}/cron" -mindepth 1 -maxdepth 1 -type f -print0)  #files
+        done < <(find "${my_vhost_dir}/cron" -mindepth 1 -maxdepth 1 -type f -print0)  #files
       fi
-      echo "${vhost} = ${short_vhost_dir}"
     done < <(find "${VHOST_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
     echo ""
   fi
