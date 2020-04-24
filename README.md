@@ -16,7 +16,9 @@
 * default configs will be added if the config dir is empty
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
-* Every hour find vhost cron files and place them in the /etc/cron.d/ (set CRON_ENABLE to false to disable)
+
+# Automation (hourly)
+* find vhost cron files and place them in the /etc/cron.d/ (set CRON_ENABLE to false to disable)
 
 # Included Modules:
 * cache

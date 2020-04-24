@@ -72,9 +72,6 @@ RUN echo "**** Correct permissions ****" \
   && chown -R nobody:nogroup /usr/local/lsws/logs/ \
   && chmod +x /etc/cron.hourly/generate-vhost-cron
 
-
-
-
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd
 

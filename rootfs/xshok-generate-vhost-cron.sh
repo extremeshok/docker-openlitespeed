@@ -11,8 +11,6 @@
 #
 #################################################################################
 
-echo "xshok-generate-vhost-cron.sh" >> /tmp/testing
-
 XS_CRON_ENABLE=${CRON_ENABLE:-yes}
 
 VHOST_DIR="/var/www/vhosts"
@@ -20,8 +18,6 @@ TMP_CRON_DIR="/tmp/xs_cron"
 CRON_DIR="/etc/cron.d"
 
 if [ "$XS_CRON_ENABLE" == "yes" ] || [ "$XS_CRON_ENABLE" == "true" ] || [ "$XS_CRON_ENABLE" == "on" ] || [ "$XS_CRON_ENABLE" == "1" ] ; then
-  echo "enabled" >> /tmp/testing
-
   if [ -d "${VHOST_DIR}" ] ; then
     echo "Generating cron files"
     rm -rf "${TMP_CRON_DIR}"
@@ -49,7 +45,6 @@ if [ "$XS_CRON_ENABLE" == "yes" ] || [ "$XS_CRON_ENABLE" == "true" ] || [ "$XS_C
 
   # rsync only if there are files
   if [ -n "$(ls -A "${TMP_CRON_DIR}")" ]; then
-    echo "rsync" >> /tmp/testing
     echo "Syncing generated files to ${CRON_DIR}"
     rsync --dirs -v --checksum --delete --remove-source-files "${TMP_CRON_DIR}/" "${CRON_DIR}/"
   fi
