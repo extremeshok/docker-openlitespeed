@@ -19,7 +19,8 @@
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
 
-# generate cron from cron files located in vhost/cron
+# VHOST_CRON_ENABLE (disabled by default)
+## generate cron from cron files located in vhost/cron (hourly)
 * set VHOST_CRON_ENABLE to true to enable, disabled by default
 * finds all vhost/cron files and places them in the /etc/cron.d/ , runs hourly
 * Place cron files in **/var/www/vhosts/fqdn.com/cron** , see example **/var/www/vhosts/localhost/cron/example**
