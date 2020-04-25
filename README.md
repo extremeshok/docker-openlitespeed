@@ -1,6 +1,8 @@
 # eXtremeSHOK.com Docker OpenLiteSpeed with mod_security and pagespeed on Ubuntu 18.04
 
-## Uses the base image docker-baseimage-ubuntu : https://hub.docker.com/r/extremeshok/baseimage-ubuntu
+## Uses the base image extremeshok/baseimage-ubuntu : https://hub.docker.com/r/extremeshok/baseimage-ubuntu
+
+## Need PHP ?extremeshok/openlitespeed-php : https://hub.docker.com/repository/docker/extremeshok/openlitespeed-php
 
 ## Checkout our optimized production web-server setup based on docker https://github.com/extremeshok/docker-webserver
 
