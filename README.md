@@ -2,6 +2,8 @@
 
 ## This is a base image used by the extremeshok/openlitespeed-php image
 
+## Note all configs are optimized and designed for production usage.
+
 * Ubuntu 18.04 with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
 * Optimized OpenLiteSpeed configs
@@ -33,7 +35,6 @@ Place files in **/var/www/vhosts/fqdn.com/** , see example **/var/www/vhosts/loc
 
 # Per vhost cron
 Place cron files in **/var/www/vhosts/fqdn.com/cron/** they will be created in /etc/cron.d/
-
 
 # Ports
 * 80 : http

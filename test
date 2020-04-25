@@ -1,7 +1,8 @@
 
 docker run --rm -it  extremeshok/baseimage-ubuntu /bin/bash
 
-
 https://github.com/ayumi-cloud/oc-security-module/tree/master/Comodo%20Apache%20Ruleset
 
 https://github.com/ayumi-cloud/oc-security-module/tree/master/Imunify360%20Apache%20Ruleset
+
+Header set Strict-Transport-Security: max-age=63072000; includeSubDomains; preload

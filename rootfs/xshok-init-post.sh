@@ -7,6 +7,9 @@
 ## enable case insensitve matching
 shopt -s nocaseglob
 
+# automatic cron generation
+XS_CRON_ENABLE=${CRON_ENABLE:-yes}
+
 ######  Initialize Configs ######
 # Restore configs if they are missing, ie if a new/empty volume was used to store the configs
 if [ ! -f  "/etc/openlitespeed/conf/httpd_config.conf" ] || [ ! -f  "/etc/openlitespeed/admin/admin_config.conf" ] ; then
@@ -48,8 +51,16 @@ if [ -d "/var/www/vhosts" ] ; then
 fi
 
 ##### Generate vhost cron on start
-echo "xshok-init-post.sh" >> /tmp/testing
-bash /xshok-generate-vhost-cron.sh
+if [ "${XS_CRON_ENABLE,,}" == "yes" ] || [ "${XS_CRON_ENABLE,,}" == "true" ] || [ "${XS_CRON_ENABLE,,}" == "on" ] || [ "${XS_CRON_ENABLE,,}" == "1" ] ; then
+  if [ ! -f "/etc/cron.hourly/generate-vhost-cron" ] ; then
+    echo "#!/usr/bin/env bash" > /etc/cron.hourly/generate-vhost-cron
+    echo "bash /xshok-generate-vhost-cron.sh" >> /etc/cron.hourly/generate-vhost-cron
+    chmod +x /etc/cron.hourly/generate-vhost-cron
+  fi
+  bash /xshok-generate-vhost-cron.sh
+else
+  rm -f "/etc/cron.hourly/generate-vhost-cron"
+fi
 
 ###### LAUNCH LITESPEEED SERVER ######
 /usr/local/lsws/bin/lswsctrl start

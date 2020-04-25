@@ -1,5 +1,10 @@
 FROM extremeshok/baseimage-ubuntu AS BUILD
 LABEL mantainer="Adrian Kriel <admin@extremeshok.com>" vendor="eXtremeSHOK.com"
+################################################################################
+# This is property of eXtremeSHOK.com
+# You are free to use, modify and distribute, however you may not remove this notice.
+# Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
+################################################################################
 
 USER root
 
@@ -9,8 +14,7 @@ RUN echo "**** Install packages ****" \
 RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && wget https://rpms.litespeedtech.com/debian/lst_repo.gpg -O /usr/local/src/lst_repo.gpg \
   && apt-key add /usr/local/src/lst_repo.gpg \
-  && CODENAME=$(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) \
-  && echo "deb http://rpms.litespeedtech.com/debian/ ${CODENAME} main" >> /etc/apt/sources.list
+  && echo "deb http://rpms.litespeedtech.com/debian/ $(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) main" >> /etc/apt/sources.list
 
 RUN echo "**** Install OpenLiteSpeed  ****" \
   && apt-install openlitespeed ols-modsecurity ols-pagespeed
@@ -69,8 +73,7 @@ RUN echo "**** Create symbolic links ****" \
 
 RUN echo "**** Correct permissions ****" \
   && chown -R lsadm:lsadm /usr/local/lsws \
-  && chown -R nobody:nogroup /usr/local/lsws/logs/ \
-  && chmod +x /etc/cron.hourly/generate-vhost-cron
+  && chown -R nobody:nogroup /usr/local/lsws/logs/
 
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd
