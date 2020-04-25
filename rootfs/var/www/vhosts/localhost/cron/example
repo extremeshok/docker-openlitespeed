@@ -1,2 +1,2 @@
-# min	hour	day	month	weekday	user command
+# min	hour day	month	weekday	user command
 #* * * * * root /bin/date >> /tmp/date.log

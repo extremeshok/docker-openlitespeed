@@ -2,7 +2,7 @@
 
 ## This is a base image used by the extremeshok/openlitespeed-php image
 
-## Note all configs are optimized and designed for production usage.
+## Note all configs are optimized and designed for production usage
 
 * Ubuntu 18.04 with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
@@ -19,8 +19,10 @@
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
 
-# Automation (hourly)
-* find vhost cron files and place them in the /etc/cron.d/ (set CRON_ENABLE to false to disable)
+# generate cron from cron files located in vhost/cron
+set CRON_ENABLE to true to enable, disabled by default
+* finds all vhost/cron files and places them in the /etc/cron.d/ , runs hourly
+* Place cron files in **/var/www/vhosts/fqdn.com/cron** , see example **/var/www/vhosts/localhost/cron/example**
 
 # Included Modules:
 * cache
@@ -29,12 +31,6 @@
 * modinspector
 * pagespeed
 * uploadprogress
-
-# Usage
-Place files in **/var/www/vhosts/fqdn.com/** , see example **/var/www/vhosts/localhost/**
-
-# Per vhost cron
-Place cron files in **/var/www/vhosts/fqdn.com/cron/** they will be created in /etc/cron.d/
 
 # Ports
 * 80 : http

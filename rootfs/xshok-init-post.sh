@@ -8,7 +8,7 @@
 shopt -s nocaseglob
 
 # automatic cron generation
-XS_CRON_ENABLE=${CRON_ENABLE:-yes}
+XS_CRON_ENABLE=${CRON_ENABLE:-no}
 
 ######  Initialize Configs ######
 # Restore configs if they are missing, ie if a new/empty volume was used to store the configs
