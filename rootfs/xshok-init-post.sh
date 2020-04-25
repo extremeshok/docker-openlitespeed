@@ -8,7 +8,7 @@
 shopt -s nocaseglob
 
 # automatic cron generation
-XS_CRON_ENABLE=${CRON_ENABLE:-no}
+XS_VHOST_CRON_ENABLE=${VHOST_CRON_ENABLE:-no}
 
 ######  Initialize Configs ######
 # Restore configs if they are missing, ie if a new/empty volume was used to store the configs
@@ -51,7 +51,7 @@ if [ -d "/var/www/vhosts" ] ; then
 fi
 
 ##### Generate vhost cron on start
-if [ "${XS_CRON_ENABLE,,}" == "yes" ] || [ "${XS_CRON_ENABLE,,}" == "true" ] || [ "${XS_CRON_ENABLE,,}" == "on" ] || [ "${XS_CRON_ENABLE,,}" == "1" ] ; then
+if [ "${XS_VHOST_CRON_ENABLE,,}" == "yes" ] || [ "${XS_VHOST_CRON_ENABLE,,}" == "true" ] || [ "${XS_VHOST_CRON_ENABLE,,}" == "on" ] || [ "${XS_VHOST_CRON_ENABLE,,}" == "1" ] ; then
   if [ ! -f "/etc/cron.hourly/generate-vhost-cron" ] ; then
     echo "#!/usr/bin/env bash" > /etc/cron.hourly/generate-vhost-cron
     echo "bash /xshok-generate-vhost-cron.sh" >> /etc/cron.hourly/generate-vhost-cron

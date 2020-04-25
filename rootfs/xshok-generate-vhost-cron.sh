@@ -7,7 +7,7 @@
 #
 # Generate cron.d files from cron files located in the vhost/vhost_name/cron dirs
 #
-# Set CRON_ENABLE to "no" to disable
+# Set VHOST_CRON_ENABLE to "no" to disable
 #
 #################################################################################
 
