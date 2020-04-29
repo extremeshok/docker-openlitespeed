@@ -40,9 +40,11 @@ RUN echo "*** house keeping ***" \
   && rm -rf /tmp/* \
   && rm -rf /var/lib/apt/lists/*
 
-# RUN echo "*** Configure logging ***" \
-#   && ln -sf /dev/stdout /usr/local/lsws/logs/access.log \
-#   && ln -sf /dev/stderr /usr/local/lsws/logs/error.log
+RUN echo "*** Ensure log files exist ***" \
+  && touch /usr/local/lsws/logs/access.log \
+  && touch /usr/local/lsws/logs/modsec.log \
+  && touch /usr/local/lsws/logs/lsrestart.log \
+  && touch /usr/local/lsws/logs/error.log
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN echo "**** Fix permissions ****" \

@@ -2,7 +2,7 @@
 
 ## Uses the base image extremeshok/baseimage-ubuntu : https://hub.docker.com/r/extremeshok/baseimage-ubuntu
 
-## Need PHP ?extremeshok/openlitespeed-php : https://hub.docker.com/repository/docker/extremeshok/openlitespeed-php
+## Need PHP ? extremeshok/openlitespeed-php : https://hub.docker.com/repository/docker/extremeshok/openlitespeed-php
 
 ## Checkout our optimized production web-server setup based on docker https://github.com/extremeshok/docker-webserver
 
@@ -16,8 +16,7 @@
 * Low memory usage
 * HEALTHCHECK activated
 * Graceful shutdown
-* accesslog = stdout
-* errorlog = stderr
+* tail modsec.log and error.log to stdout
 * configs located in /etc/openlitespeed/
 * default configs will be added if the config dir is empty
 * OWASP modsecurity rules enabled
