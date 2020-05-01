@@ -79,7 +79,7 @@ RUN echo "**** Correct permissions ****" \
   && chmod +x /etc/services.d/cron/run \
   && chmod +x /etc/services.d/inotify-certs/run \
   && chmod +x /etc/services.d/openlitespeed/run \
-  && chmod +x /etc/services.d/tail-log-error/run \
+  && chmod +x /etc/services.d/tail-log-error/run
 
 
 RUN echo "**** Ensure there is no admin password ****" \
