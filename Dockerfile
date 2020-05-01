@@ -75,7 +75,12 @@ RUN echo "**** Create symbolic links ****" \
 
 RUN echo "**** Correct permissions ****" \
   && chown -R lsadm:lsadm /usr/local/lsws \
-  && chown -R nobody:nogroup /usr/local/lsws/logs/
+  && chown -R nobody:nogroup /usr/local/lsws/logs/ \
+  && chmod +x /etc/services.d/cron/run \
+  && chmod +x /etc/services.d/inotify-certs/run \
+  && chmod +x /etc/services.d/openlitespeed/run \
+  && chmod +x /etc/services.d/tail-log-error/run \
+
 
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd
