@@ -9,4 +9,7 @@
 #
 # find a solution to tail as nobody
 #exec s6-setuidgid nobody tail -F -n 0 /usr/local/lsws/logs/error.log /usr/local/lsws/logs/modsec.log
-echo "Monitoring error.log" >> /usr/local/lsws/logs/error.log && echo "Monitoring modsec.log" >> /usr/local/lsws/logs/modsec.log && tail -F -n 1 /usr/local/lsws/logs/error.log /usr/local/lsws/logs/modsec.log
+
+while true ; do
+  echo "Monitoring error.log" >> /usr/local/lsws/logs/error.log && echo "Monitoring modsec.log" >> /usr/local/lsws/logs/modsec.log && tail -F -n 1 /usr/local/lsws/logs/error.log /usr/local/lsws/logs/modsec.log
+done
