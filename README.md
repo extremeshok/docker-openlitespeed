@@ -1,4 +1,4 @@
-# eXtremeSHOK.com Docker OpenLiteSpeed with mod_security and pagespeed on Ubuntu 18.04
+# eXtremeSHOK.com Docker OpenLiteSpeed with mod_security and pagespeed on Ubuntu LTS
 
 ## Uses the base image extremeshok/baseimage-ubuntu : https://hub.docker.com/r/extremeshok/baseimage-ubuntu
 
@@ -8,7 +8,7 @@
 
 ## Note all configs are optimized and designed for production usage
 
-* Ubuntu 18.04 with S6
+* Ubuntu LTS with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
 * Optimized OpenLiteSpeed configs
 * OpenLiteSpeed Repository
