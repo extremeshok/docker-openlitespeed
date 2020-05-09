@@ -1,4 +1,4 @@
-FROM extremeshok/baseimage-ubuntu:18.04 AS BUILD
+FROM extremeshok/baseimage-ubuntu:20.04 AS BUILD
 LABEL mantainer="Adrian Kriel <admin@extremeshok.com>" vendor="eXtremeSHOK.com"
 ################################################################################
 # This is property of eXtremeSHOK.com

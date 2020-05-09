@@ -12,6 +12,6 @@ while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with
 done
 
 while true ; do
-  cron -f -L 15
+  cron -f -d 8
   sleep 60s
 done
