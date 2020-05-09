@@ -16,8 +16,20 @@ RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && apt-key add /usr/local/src/lst_repo.gpg \
   && echo "deb http://rpms.litespeedtech.com/debian/ $(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) main" >> /etc/apt/sources.list
 
-RUN echo "**** Install OpenLiteSpeed  ****" \
-  && apt-install openlitespeed ols-modsecurity ols-pagespeed
+RUN \
+  echo "**** install OpenLiteSpeed from latest github release****" \
+  && OLSVERSION="$(curl --silent "https://api.github.com/repos/litespeedtech/openlitespeed/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')" \
+  && OLSVERSION="$(echo "$OLSVERSION" | sed 's/v//')" \
+  && echo "$OLSVERSION" \
+  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" \
+  && tar xfz /tmp/openlitespeed.tgz -C /tmp \
+  && cd openlitespeed \
+  && bash /tmp/openlitespeed/install.sh \
+  && rm -f /tmp/openlitespeed.tgz \
+  && rm -rf /tmp/openlitespeed
+
+#RUN echo "**** Install OpenLiteSpeed from repo ****" \
+#  && apt-install openlitespeed ols-modsecurity ols-pagespeed
 
 # BUG: lsphp73 is marked as a dependancy.. we will ignore this... a bug has been filed : https://github.com/litespeedtech/openlitespeed/issues/170
 

@@ -11,7 +11,8 @@
 * Ubuntu LTS with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
 * Optimized OpenLiteSpeed configs
-* OpenLiteSpeed Repository
+* OpenLiteSpeed installed via github releases
+* OpenLiteSpeed Repository used for lsphp
 * IONICE set to -10
 * Low memory usage
 * HEALTHCHECK activated
@@ -30,10 +31,12 @@
 
 # Included Modules:
 * cache
+* mod_js
 * mod_security
 * modgzip
 * modinspector
-* pagespeed
+* modpagespeed
+* modreqparser
 * uploadprogress
 
 # Ports
