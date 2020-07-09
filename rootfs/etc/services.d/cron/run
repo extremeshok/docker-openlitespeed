@@ -5,11 +5,15 @@
 # Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
 ################################################################################
 
-
 while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; do
 	echo "Waiting for OpenLiteSpeed to start"
   sleep 10s
 done
+
+if [ -f /xshok-generate-vhost-cron.sh ] ; then
+  echo "Launching generate-vhost-cro"
+  bash /xshok-generate-vhost-cron.sh
+fi
 
 while true ; do
   cron -f

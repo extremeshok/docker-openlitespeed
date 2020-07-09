@@ -22,6 +22,7 @@
 * default configs will be added if the config dir is empty
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
+* Fix-permissions and generate-vhost-cron is non-blocking
 
 # VHOST_CRON_ENABLE (disabled by default)
 ## generate cron from cron files located in vhost/cron (hourly)

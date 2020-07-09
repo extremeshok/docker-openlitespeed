@@ -7,9 +7,6 @@
 ## enable case insensitve matching
 shopt -s nocaseglob
 
-# automatic cron generation
-XS_VHOST_CRON_ENABLE=${VHOST_CRON_ENABLE:-no}
-
 ######  Initialize Configs ######
 # Restore configs if they are missing, ie if a new/empty volume was used to store the configs
 if [ ! -f  "/etc/openlitespeed/conf/httpd_config.conf" ] || [ ! -f  "/etc/openlitespeed/admin/admin_config.conf" ] ; then
@@ -33,33 +30,6 @@ fi
 if [ ! -f  "/var/www/vhosts/localhost/certs/privkey.pem" ] || [ ! -f  "/var/www/vhosts/localhost/certs/fullchain.pem" ] ; then
   echo "Generating default certificate and key for localhost"
   openssl req -new -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -out /var/www/vhosts/localhost/certs/fullchain.pem -keyout  /var/www/vhosts/localhost/certs/privkey.pem -subj "/C=RO/ST=Bucharest/L=Bucharest/O=IT/CN=localhost"
-fi
-
-###### Fix vhost permissions ######
-if [ -d "/var/www/vhosts" ] ; then
-  while IFS= read -r -d '' my_vhost_dir; do
-    echo "Fixing vhost permissions"
-    if [ -d "${my_vhost_dir}/html" ] ; then
-      find "${my_vhost_dir}/html" -type f -exec chmod 0664 {} \;
-      find "${my_vhost_dir}/html" -type d -exec chmod 0775 {} \;
-    fi
-    if [ -d "${my_vhost_dir}/certs" ] ; then
-      chown -R nobody:nogroup "${my_vhost_dir}/certs"
-      chmod -R 640 "${my_vhost_dir}/certs"
-    fi
-  done < <(find "/var/www/vhosts" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
-fi
-
-##### Generate vhost cron on start
-if [ "${XS_VHOST_CRON_ENABLE,,}" == "yes" ] || [ "${XS_VHOST_CRON_ENABLE,,}" == "true" ] || [ "${XS_VHOST_CRON_ENABLE,,}" == "on" ] || [ "${XS_VHOST_CRON_ENABLE,,}" == "1" ] ; then
-  if [ ! -f "/etc/cron.hourly/generate-vhost-cron" ] ; then
-    echo "#!/usr/bin/env bash" > /etc/cron.hourly/generate-vhost-cron
-    echo "bash /xshok-generate-vhost-cron.sh" >> /etc/cron.hourly/generate-vhost-cron
-    chmod +x /etc/cron.hourly/generate-vhost-cron
-  fi
-  bash /xshok-generate-vhost-cron.sh
-else
-  rm -f "/etc/cron.hourly/generate-vhost-cron"
 fi
 
 ###### LAUNCH LITESPEEED SERVER ######
