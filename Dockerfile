@@ -9,7 +9,7 @@ LABEL mantainer="Adrian Kriel <admin@extremeshok.com>" vendor="eXtremeSHOK.com"
 USER root
 
 RUN echo "**** Install packages ****" \
-  && apt-install gnupg gnupg-utils netcat less git inotify-tools rsync
+  && apt-install gnupg gnupg-utils netcat less git inotify-tools rsync unzip bubblewrap
 
 RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && wget https://rpms.litespeedtech.com/debian/lst_repo.gpg -O /usr/local/src/lst_repo.gpg \
@@ -25,7 +25,8 @@ RUN \
   && tar xfz /tmp/openlitespeed.tgz -C /tmp \
   && bash /tmp/openlitespeed/install.sh \
   && rm -f /tmp/openlitespeed.tgz \
-  && rm -rf /tmp/openlitespeed
+  && rm -rf /tmp/openlitespeed \
+  && echo "cloud-docker" > /usr/local/lsws/PLAT
 
 #RUN echo "**** Install OpenLiteSpeed from repo ****" \
 #  && apt-install openlitespeed ols-modsecurity ols-pagespeed
@@ -39,6 +40,13 @@ RUN echo "**** Install and configure modsecurity owasp  ****" \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/crs-setup.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/crs-setup.conf \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf \
   && mv -f /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example /usr/local/lsws/conf/modsecurity/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
+
+RUN echo "**** Install and configure geoip IP2Location  ****" \
+  && mkdir -p /usr/local/lsws/geoip \
+  && curl --silent -o /tmp/ip2location.zip -L https://download.ip2location.com/lite/IP2LOCATION-LITE-DB1.IPV6.BIN.ZIP \
+  && unzip /tmp/ip2location.zip -d /tmp/ip2location \
+  && mv -f /tmp/ip2location/* /usr/local/lsws/geoip \
+  && touch "/usr/local/lsws/geoip/$(date +%B).update"
 
 # Update ca-certificates
 RUN echo "**** Update ca-certificates ****" \
@@ -92,9 +100,13 @@ RUN echo "**** Correct permissions ****" \
   && chmod +x /etc/services.d/openlitespeed/run \
   && chmod +x /etc/services.d/tail-log-error/run
 
-
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd
+
+RUN echo "**** Display Versions ****" \
+  && openssl version \
+  && bwrap --version \
+  && /usr/local/lsws/bin/openlitespeed --version
 
 WORKDIR /var/www/vhosts/localhost/
 

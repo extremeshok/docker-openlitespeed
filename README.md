@@ -1,4 +1,4 @@
-# eXtremeSHOK.com Docker OpenLiteSpeed with mod_security and pagespeed on Ubuntu LTS
+# eXtremeSHOK.com Docker OpenLiteSpeed with modsecurity and pagespeed on Ubuntu LTS
 
 ## Uses the base image extremeshok/baseimage-ubuntu : https://hub.docker.com/r/extremeshok/baseimage-ubuntu
 
@@ -10,6 +10,9 @@
 
 * Ubuntu LTS with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
+* Bubblewrap ready
+* Preinstalled IP2Location DB , updated monthly on start (IP2LOCATION-LITE-DB1.IPV6.BIN from https://lite.ip2location.com)
+* IP2Location running in Shared Memory DB Cache
 * Optimized OpenLiteSpeed configs
 * OpenLiteSpeed installed via github releases
 * OpenLiteSpeed Repository used for lsphp
@@ -23,6 +26,7 @@
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
 * Fix-permissions and generate-vhost-cron is non-blocking
+* Outputs platform information on start
 
 # VHOST_CRON_ENABLE (disabled by default)
 ## generate cron from cron files located in vhost/cron (hourly)
@@ -56,4 +60,9 @@
 replace container name with the container name, eg xs_openlitespeed_1
 ```
 docker exec -ti containername /bin/bash '/usr/local/lsws/admin/misc/admpass.sh'
+```
+
+# Bubblewrap Usage
+```
+https://openlitespeed.org/kb/bubblewrap-in-openlitespeed/#Configure_OpenLiteSpeed_for_bubblewrap
 ```
