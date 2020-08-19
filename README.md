@@ -10,7 +10,6 @@
 
 * Ubuntu LTS with S6
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
-* Bubblewrap ready
 * Preinstalled IP2Location DB , updated monthly on start (IP2LOCATION-LITE-DB1.IPV6.BIN from https://lite.ip2location.com)
 * IP2Location running in Shared Memory DB Cache
 * Optimized OpenLiteSpeed configs
@@ -61,9 +60,4 @@
 replace container name with the container name, eg xs_openlitespeed_1
 ```
 docker exec -ti containername /bin/bash '/usr/local/lsws/admin/misc/admpass.sh'
-```
-
-# Bubblewrap Usage
-```
-https://openlitespeed.org/kb/bubblewrap-in-openlitespeed/#Configure_OpenLiteSpeed_for_bubblewrap
 ```
