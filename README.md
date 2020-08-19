@@ -14,6 +14,7 @@
 * Preinstalled IP2Location DB , updated monthly on start (IP2LOCATION-LITE-DB1.IPV6.BIN from https://lite.ip2location.com)
 * IP2Location running in Shared Memory DB Cache
 * Optimized OpenLiteSpeed configs
+* Optimised HTTP Headers for Security (Content Security Policy (CSP), Access-Control-Allow-Methods, Content-Security-Policy, Strict-Transport-Security, X-Content-Type-Options, X-DNS-Prefetch-Control, X-Frame-Options, X-XSS-Protection)
 * OpenLiteSpeed installed via github releases
 * OpenLiteSpeed Repository used for lsphp
 * IONICE set to -10
