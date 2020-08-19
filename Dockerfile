@@ -10,7 +10,6 @@ USER root
 
 RUN echo "**** Install packages ****" \
   && apt-install gnupg gnupg-utils netcat less git inotify-tools rsync unzip
-#bubblewrap
 
 RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && wget https://rpms.litespeedtech.com/debian/lst_repo.gpg -O /usr/local/src/lst_repo.gpg \

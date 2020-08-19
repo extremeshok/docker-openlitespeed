@@ -44,12 +44,11 @@ if [ ! -f "/usr/local/lsws/geoip/$(date +%B).update" ] && [ -d "/usr/local/lsws/
 fi
 
 echo "**** Platform Information ****"
-if [ -f [ "/etc/lsb-release" ] ; then cat /etc/lsb-release ; fi
-if [ -x /usr/bin/openssl ] ; then openssl version ; fi
+if [ -f "/etc/lsb-release" ] ; then cat /etc/lsb-release ; fi
+if [ -x "/usr/bin/openssl" ] ; then openssl version ; fi
 if [ -f "/usr/local/lsws/geoip/$(date +%B).update" ] ; then echo "IP2LOCATION-LITE-DB1.IPV6.BIN @ $(date +%B)" ; fi
-if [ -x /usr/bin/bwrap ] ; then /usr/bin/bwrap --version ; fi
-if [ -x /usr/local/lsws/fcgi-bin/lsphp ] ; then /usr/local/lsws/fcgi-bin/lsphp -v ; fi
-if [ -x /usr/local/lsws/bin/openlitespeed ] ; then /usr/local/lsws/bin/openlitespeed --version ; fi
+if [ -x "/usr/local/lsws/fcgi-bin/lsphp" ] ; then /usr/local/lsws/fcgi-bin/lsphp -v ; fi
+if [ -x "/usr/local/lsws/bin/openlitespeed" ] ; then /usr/local/lsws/bin/openlitespeed --version ; fi
 
 ###### LAUNCH LITESPEEED SERVER ######
 /usr/local/lsws/bin/lswsctrl start
