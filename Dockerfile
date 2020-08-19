@@ -105,7 +105,6 @@ RUN echo "**** Ensure there is no admin password ****" \
 
 RUN echo "**** Display Versions ****" \
   && openssl version \
-  && bwrap --version \
   && /usr/local/lsws/bin/openlitespeed --version
 
 WORKDIR /var/www/vhosts/localhost/
