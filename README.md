@@ -61,3 +61,8 @@ replace container name with the container name, eg xs_openlitespeed_1
 ```
 docker exec -ti containername /bin/bash '/usr/local/lsws/admin/misc/admpass.sh'
 ```
+
+# Check the headers
+```
+curl -XGET --resolve domain.com:443:ip.ad.re.ss https://domain.com -k -I
+```
