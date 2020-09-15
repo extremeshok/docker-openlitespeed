@@ -13,6 +13,7 @@ if [ -d "/var/www/vhosts" ] ; then
   while IFS= read -r -d '' my_vhost_dir; do
     echo "Fixing vhost permissions : folders"
     if [ -d "${my_vhost_dir}/html" ] ; then
+      find "${my_vhost_dir}/html" -type d -exec chown nobody:nogroup {} \;
       find "${my_vhost_dir}/html" -type d -exec chmod 0775 {} \;
     fi
     if [ -d "${my_vhost_dir}/certs" ] ; then
@@ -28,6 +29,7 @@ if [ -d "/var/www/vhosts" ] ; then
   while IFS= read -r -d '' my_vhost_dir; do
     echo "Fixing vhost permissions : files"
     if [ -d "${my_vhost_dir}/html" ] ; then
+      find "${my_vhost_dir}/html" -type f -exec chown nobody:nogroup {} \;
       find "${my_vhost_dir}/html" -type f -exec chmod 0664 {} \;
     fi
   done < <(find "/var/www/vhosts" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
