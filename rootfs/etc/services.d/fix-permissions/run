@@ -8,5 +8,6 @@
 if [ -f /xshok-fix-permissions.sh ] ; then
   echo "Launching fix-permissions"
   bash /xshok-fix-permissions.sh
-  sleep 1d
+  #run once every 7 days
+  sleep 7d
 fi
