@@ -8,4 +8,5 @@
 if [ -f /xshok-fix-permissions.sh ] ; then
   echo "Launching fix-permissions"
   bash /xshok-fix-permissions.sh
+  sleep 1d
 fi
