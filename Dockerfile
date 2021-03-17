@@ -22,7 +22,8 @@ RUN \
   && OLSVERSION="$(echo "$OLSVERSION" | sed 's/v//')" \
   && echo "$OLSVERSION" \
   && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/archive/v${OLSVERSION}.tar.gz" \
-  && tar xfz /tmp/openlitespeed.tgz -C /tmp \
+  && mkdir -p /tmp/openlitespeed \
+  && tar xfz /tmp/openlitespeed.tgz --strip-components=1 -C /tmp/openlitespeed \
   && bash /tmp/openlitespeed/install.sh \
   && rm -f /tmp/openlitespeed.tgz \
   && rm -rf /tmp/openlitespeed \
