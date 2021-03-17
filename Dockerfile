@@ -21,7 +21,7 @@ RUN \
   && OLSVERSION="$(curl --silent "https://api.github.com/repos/litespeedtech/openlitespeed/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')" \
   && OLSVERSION="$(echo "$OLSVERSION" | sed 's/v//')" \
   && echo "$OLSVERSION" \
-  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" \
+  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/archive/v${OLSVERSION}.tar.gz" \
   && tar xfz /tmp/openlitespeed.tgz -C /tmp \
   && bash /tmp/openlitespeed/install.sh \
   && rm -f /tmp/openlitespeed.tgz \
