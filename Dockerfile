@@ -17,17 +17,25 @@ RUN echo "**** Add OpenLiteSpeed Repo ****" \
   && echo "deb http://rpms.litespeedtech.com/debian/ $(grep 'VERSION_CODENAME=' /etc/os-release | cut -d"=" -f2 | xargs) main" >> /etc/apt/sources.list
 
 RUN \
-  echo "**** install OpenLiteSpeed from latest github release****" \
+  echo "**** Fetch latest OpenLiteSpeed release from github ****" \
   && OLSVERSION="$(curl --silent "https://api.github.com/repos/litespeedtech/openlitespeed/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')" \
   && OLSVERSION="$(echo "$OLSVERSION" | sed 's/v//')" \
-  && echo "$OLSVERSION" \
-  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/archive/v${OLSVERSION}.tar.gz" \
+  && if curl -s --head  --request GET "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" | grep "404" > /dev/null ; then OLSVERSION="${OLSVERSION%.*}" ; fi \
+  && if curl -s --head  --request GET "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" | grep "404" > /dev/null ; then exit 1 ; fi \
+  && echo "Downloading OpenLiteSpeed : $OLSVERSION" \
+  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz"
+
+RUN \
+  echo "**** install OpenLiteSpeed ****" \
   && mkdir -p /tmp/openlitespeed \
   && tar xfz /tmp/openlitespeed.tgz --strip-components=1 -C /tmp/openlitespeed \
   && bash /tmp/openlitespeed/install.sh \
+  && echo "cloud-docker" > /usr/local/lsws/PLAT
+
+RUN \
+  echo "**** Cleanup OpenLiteSpeed ****" \
   && rm -f /tmp/openlitespeed.tgz \
   && rm -rf /tmp/openlitespeed \
-  && echo "cloud-docker" > /usr/local/lsws/PLAT
 
 #RUN echo "**** Install OpenLiteSpeed from repo ****" \
 #  && apt-install openlitespeed ols-modsecurity ols-pagespeed
