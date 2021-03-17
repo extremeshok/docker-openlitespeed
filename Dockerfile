@@ -20,10 +20,10 @@ RUN \
   echo "**** Fetch latest OpenLiteSpeed release from github ****" \
   && OLSVERSION="$(curl --silent "https://api.github.com/repos/litespeedtech/openlitespeed/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')" \
   && OLSVERSION="$(echo "$OLSVERSION" | sed 's/v//')" \
-  && if curl -s --head  --request GET "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" | grep "404" > /dev/null ; then OLSVERSION="${OLSVERSION%.*}" ; fi \
-  && if curl -s --head  --request GET "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" | grep "404" > /dev/null ; then exit 1 ; fi \
+  && if curl -s --head --request GET "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz" | grep "404" > /dev/null ; then OLSVERSIONSHORT="${OLSVERSION%.*}" ; else  OLSVERSIONSHORT="${OLSVERSION}" ; fi \
+  && if curl -s --head --request GET "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSIONSHORT}.tgz" | grep "404" > /dev/null ; then echo "FAILED: invalid url" ; exit 1 ; fi \
   && echo "Downloading OpenLiteSpeed : $OLSVERSION" \
-  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSION}.tgz"
+  && curl --silent -o /tmp/openlitespeed.tgz -L "https://github.com/litespeedtech/openlitespeed/releases/download/v${OLSVERSION}/openlitespeed-${OLSVERSIONSHORT}.tgz"
 
 RUN \
   echo "**** install OpenLiteSpeed ****" \
