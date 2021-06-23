@@ -8,6 +8,6 @@
 if [ -f /xshok-vhost-fix-permissions.sh ] ; then
   echo "Launching xshok-vhost-fix-permissions.sh"
   bash /xshok-vhost-fix-permissions.sh
-  #run once every 7 days
-  sleep 7d
+  #run once every 1 hours
+  sleep 1h
 fi
