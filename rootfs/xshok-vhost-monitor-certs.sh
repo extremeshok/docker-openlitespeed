@@ -18,7 +18,7 @@ XS_VHOST_DIR=${VHOST_DIR:-/var/www/vhosts}
 
 XS_VHOST_MONITOR_CERTS=${VHOST_MONITOR_CERTS:-yes}
 
-if [ "${XS_VHOST_MONITOR_CERTS}" == "yes" ] || [ "${XS_VHOST_MONITOR_CERTS}" == "true" ] || [ "${XS_VHOST_MONITOR_CERTS}" == "on" ] || [ "${XS_VHOST_MONITOR_CERTS}" == "1" ] ; then
+if [ "${XS_VHOST_MONITOR_CERTS,,}" == "yes" ] || [ "${XS_VHOST_MONITOR_CERTS,,}" == "true" ] || [ "${XS_VHOST_MONITOR_CERTS,,}" == "on" ] || [ "${XS_VHOST_MONITOR_CERTS}" == "1" ] ; then
     vhost_dir="$(realpath -s "${XS_VHOST_DIR}")"
     if [ -d "${vhost_dir}" ] ; then
       while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; do

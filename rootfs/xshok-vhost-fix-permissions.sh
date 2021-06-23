@@ -22,11 +22,11 @@ XS_VHOST_FIX_PERMISSIONS=${VHOST_FIX_PERMISSIONS:-yes}
 XS_VHOST_FIX_PERMISSIONS_FOLDERS=${VHOST_FIX_PERMISSIONS_FOLDERS:-yes}
 XS_VHOST_FIX_PERMISSIONS_FILES=${VHOST_FIX_PERMISSIONS_FILE:-yes}
 
-if [ "${XS_VHOST_FIX_PERMISSIONS}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS}" == "1" ] ; then
+if [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS}" == "1" ] ; then
   vhost_dir="$(realpath -s "${XS_VHOST_DIR}")"
   if [ -d "${vhost_dir}" ] ; then
     ###### Fix vhost permissions : folders ######
-    if [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS}" == "1" ] ; then
+    if [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS,,}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS,,}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS}" == "1" ] ; then
       while IFS= read -r -d '' my_vhost_dir; do
         echo "Fixing vhost folder permissions : ${my_vhost_dir}"
         if [ -d "${my_vhost_dir}/html" ] ; then
@@ -41,7 +41,7 @@ if [ "${XS_VHOST_FIX_PERMISSIONS}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS}"
     fi
 
     ###### Fix vhost permissions : files ######
-    if [ "${XS_VHOST_FIX_PERMISSIONS_FILES}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES}" == "1" ] ; then
+    if [ "${XS_VHOST_FIX_PERMISSIONS_FILES,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES,,}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES,,}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES}" == "1" ] ; then
       while IFS= read -r -d '' my_vhost_dir; do
         echo "Fixing vhostfile permissions : ${my_vhost_dir}"
         if [ -d "${my_vhost_dir}/html" ] ; then
