@@ -11,8 +11,8 @@
 # set VHOST_FIX_PERMISSIONS_FILES to false to disable fixing file permissions, enabled by default
 # set VHOST_FIX_PERMISSIONS_FOLDERS_FORCE set to true to force folder fixing, disabled by default
 # set VHOST_FIX_PERMISSIONS_FILES_FORCE set to true to force file fixing, disabled by default
-# set VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS set to X hours to only fix folders after X hours, default 24
-# set VHOST_FIX_PERMISSIONS_FILE_INTERVAL_HOURS set to X hours to only fix files after X hours, default 24
+# set VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_DAYS set to X days to only fix folders after X days, default 7
+# set VHOST_FIX_PERMISSIONS_FILE_INTERVAL_DAYS set to X days to only fix files after X days, default 7
 #
 #################################################################################
 
@@ -28,8 +28,8 @@ XS_VHOST_FIX_PERMISSIONS_FILES=${VHOST_FIX_PERMISSIONS_FILE:-yes}
 XS_VHOST_FIX_PERMISSIONS_FOLDERS_FORCE=${VHOST_FIX_PERMISSIONS_FOLDERS_FORCE:-no}
 XS_VHOST_FIX_PERMISSIONS_FILES_FORCE=${VHOST_FIX_PERMISSIONS_FILES_FORCE:-no}
 
-XS_VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS=${VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS:-24}
-XS_VHOST_FIX_PERMISSIONS_FILES_INTERVAL_HOURS=${VHOST_FIX_PERMISSIONS_FILE_INTERVAL_HOURS:-24}
+XS_VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_DAYS=${VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_DAYS:-7}
+XS_VHOST_FIX_PERMISSIONS_FILES_INTERVAL_DAYS=${VHOST_FIX_PERMISSIONS_FILE_INTERVAL_DAYS:-7}
 
 
 if [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS}" == "1" ] ; then
@@ -49,9 +49,9 @@ if [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS
           time_check_interval="1"
         elif [ -r "${my_vhost_dir}/.fixed-folder-permissions" ] ; then
           last_permission_fix="$(cat "${my_vhost_dir}/.fixed-folder-permissions")"
-          time_check_interval="${XS_VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS//[^0-9]/}"
+          time_check_interval="${XS_VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_DAYS//[^0-9]/}"
           time_check_interval="${time_check_interval:-1}"
-          time_check_interval="$((time_check_interval * 3600 - 600))" # hous less 10mins
+          time_check_interval="$((time_check_interval * 24 * 3600 - 600))" # days * 24 hours less 10mins
         else
           last_permission_fix="0"
           time_check_interval="1"
@@ -80,9 +80,9 @@ if [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS
           last_permission_fix="0"
         elif [ -r "${my_vhost_dir}/.fixed-file-permissions" ] ; then
           last_permission_fix="$(cat "${my_vhost_dir}/.fixed-file-permissions")"
-          time_check_interval="${XS_VHOST_FIX_PERMISSIONS_FILES_INTERVAL_HOURS//[^0-9]/}"
+          time_check_interval="${XS_VHOST_FIX_PERMISSIONS_FILES_INTERVAL_DAYS//[^0-9]/}"
           time_check_interval="${time_check_interval:-1}"
-          time_check_interval="$((time_check_interval * 3600 - 600))" # hous less 10mins
+          time_check_interval="$((time_check_interval * 24 * 3600 - 600))" # days * 24 hours less 10mins
         else
           last_permission_fix="0"
         fi

@@ -38,8 +38,8 @@
 * set VHOST_FIX_PERMISSIONS_FILES to false to disable fixing file permissions, enabled by default
 * set VHOST_FIX_PERMISSIONS_FOLDERS_FORCE set to true to force folder fixing, disabled by default
 * set VHOST_FIX_PERMISSIONS_FILES_FORCE set to true to force file fixing, disabled by default
-* set VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS set to X hours to only fix folders after X hours, default 24
-* set VHOST_FIX_PERMISSIONS_FILE_INTERVAL_HOURS set to X hours to only fix files after X hours, default 24
+* set VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_DAYS set to X hours to only fix folders after X days, default 7
+* set VHOST_FIX_PERMISSIONS_FILE_INTERVAL_DAYS set to X hours to only fix files after X days, default 7
 
 
 # VHOST_CRON (disabled by default)
