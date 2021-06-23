@@ -9,6 +9,7 @@
 ## Note all configs are optimized and designed for production usage
 
 * Ubuntu LTS with S6
+* Will detect and apply new ssl certs automatically
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
 * Preinstalled IP2Location DB , updated monthly on start (IP2LOCATION-LITE-DB1.IPV6.BIN from https://lite.ip2location.com)
 * IP2Location running in Shared Memory DB Cache
