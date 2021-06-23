@@ -14,8 +14,8 @@ while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with
 done
 
 while true ; do
-  watchmedo shell-command --ignore-patterns="/var/www/vhosts/*/acme/*;/var/www/vhosts/*/dbinfo/*;/var/www/vhosts/*/html/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/sql/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/backup/*;" --patterns="/var/www/vhosts/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 30 /var/www/vhosts --command='echo "${watch_src_path} - ${watch_dest_path} - ${watch_event_type} - ${watch_object}"'
-  #watchmedo shell-command --ignore-patterns="/var/www/vhosts/*/acme/*;/var/www/vhosts/*/dbinfo/*;/var/www/vhosts/*/html/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/sql/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/backup/*;" --patterns="/var/www/vhosts/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 30 /var/www/vhosts --command='/usr/local/lsws/bin/lswsctrl restart'
+  #watchmedo shell-command --ignore-patterns="/var/www/vhosts/*/acme/*;/var/www/vhosts/*/dbinfo/*;/var/www/vhosts/*/html/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/sql/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/backup/*;" --patterns="/var/www/vhosts/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 30 /var/www/vhosts --command='echo "${watch_src_path} - ${watch_dest_path} - ${watch_event_type} - ${watch_object}"'
+  watchmedo shell-command --ignore-patterns="/var/www/vhosts/*/acme/*;/var/www/vhosts/*/dbinfo/*;/var/www/vhosts/*/html/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/sql/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/backup/*;" --patterns="/var/www/vhosts/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 60 /var/www/vhosts --command='echo "${watch_src_path} : ${watch_event_type}, restarting litespeed" && /usr/local/lsws/bin/lswsctrl restart'
   echo "sleeping for 60s"
   sleep 60s
 done
