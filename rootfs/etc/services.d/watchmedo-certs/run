@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv bash
+################################################################################
+# This is property of eXtremeSHOK.com
+# You are free to use, modify and distribute, however you may not remove this notice.
+# Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
+################################################################################
+
+# restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected
+# requires python3-watchdog
+
+while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; do
+	echo "Waiting for OpenLiteSpeed to start"
+  sleep 10s
+done
+
+while true ; do
+  watchmedo shell-command --ignore-patterns="/var/www/vhosts/*/acme/*;/var/www/vhosts/*/dbinfo/*;/var/www/vhosts/*/html/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/sql/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/backup/*;" --patterns="/var/www/vhosts/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 30 /var/www/vhosts --command='echo "${watch_src_path} - ${watch_dest_path} - ${watch_event_type} - ${watch_object}"'
+  #watchmedo shell-command --ignore-patterns="/var/www/vhosts/*/acme/*;/var/www/vhosts/*/dbinfo/*;/var/www/vhosts/*/html/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/sql/*;/var/www/vhosts/*/logs/*;/var/www/vhosts/*/backup/*;" --patterns="/var/www/vhosts/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 30 /var/www/vhosts --command='/usr/local/lsws/bin/lswsctrl restart'
+  echo "sleeping for 60s"
+  sleep 60s
+done
