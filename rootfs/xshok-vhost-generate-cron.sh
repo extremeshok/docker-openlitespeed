@@ -22,8 +22,6 @@ TMP_CRON_DIR="/tmp/xs_cron"
 CRON_DIR="/etc/cron.d"
 
 # automatic cron generation
-# add legacy support for old varible
-XS_VHOST_CRON=${VHOST_CRON_ENABLE:-no}
 XS_VHOST_CRON=${VHOST_CRON:-no}
 
 ##### Generate vhost cron on start
