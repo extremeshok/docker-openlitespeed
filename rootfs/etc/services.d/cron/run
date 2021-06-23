@@ -10,9 +10,9 @@ while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with
   sleep 10s
 done
 
-if [ -f /xshok-generate-vhost-cron.sh ] ; then
-  echo "Launching generate-vhost-cro"
-  bash /xshok-generate-vhost-cron.sh
+if [ -f /xshok-vhost-generate-cron.sh ] ; then
+  echo "Launching generate-vhost-cron"
+  bash /xshok-vhost-generate-cron.sh
 fi
 
 while true ; do

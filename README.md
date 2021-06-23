@@ -9,7 +9,7 @@
 ## Note all configs are optimized and designed for production usage
 
 * Ubuntu LTS with S6
-* Will detect and apply new ssl certs automatically
+* Will detect and apply new ssl certs automatically (WATCHMEDO_CERTS_ENABLE)
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
 * Preinstalled IP2Location DB , updated monthly on start (IP2LOCATION-LITE-DB1.IPV6.BIN from https://lite.ip2location.com)
 * IP2Location running in Shared Memory DB Cache
@@ -26,8 +26,15 @@
 * default configs will be added if the config dir is empty
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
-* Fix-permissions and generate-vhost-cron is non-blocking
+* xshok-vhost-fix-permissions, xshok-vhost-generate-cron is non-blocking (runs parallel)
 * Outputs platform information on start
+
+# VHOST_FIX_PERMISSIONS (enabled by default)
+## Fix the vhosts folder and file perssions of the vhosts html directory
+* set VHOST_FIX_PERMISSIONS to false to disable, enabled by default
+* set XS_VHOST_FIX_PERMISSIONS_FOLDERS to false to disable fixing folder permissions, enabled by default
+* set XS_VHOST_FIX_PERMISSIONS_FILES to false to disable fixing file permissions, enabled by default
+* set XS_VHOST_FIX_PERMISSIONS_FOLDERS to false to disable, enabled by default
 
 # VHOST_CRON_ENABLE (disabled by default)
 ## generate cron from cron files located in vhost/cron (hourly)

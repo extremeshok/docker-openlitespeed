@@ -6,3 +6,91 @@ https://github.com/ayumi-cloud/oc-security-module/tree/master/Comodo%20Apache%20
 https://github.com/ayumi-cloud/oc-security-module/tree/master/Imunify360%20Apache%20Ruleset
 
 Header set Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+
+set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://*; style-src 'self' 'unsafe-inline' https://*; object-src 'none'; base-uri 'self';  connect-src 'self'; font-src 'self' data: https://*; frame-src 'self'; img-src 'self' data: https://*; manifest-src 'self'; media-src 'self'; worker-src 'nonr'; block-all-mixed-content; upgrade-insecure-requests"
+
+
+
+set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+
+
+default-src 'self';
+script-src 'report-sample' 'self' https://ajax.googleapis.com;
+style-src 'report-sample' 'self' https://code.jquery.com https://fonts.googleapis.com https://use.fontawesome.com;
+object-src 'none';
+base-uri 'self';
+connect-src 'self';
+font-src 'self' data: https://fonts.gstatic.com https://use.fontawesome.com;
+frame-src 'self';
+img-src 'self' data:;
+manifest-src 'self';
+media-src 'self';
+report-uri https://5f3ccc76b641482c3e7cf3cd.endpoint.csper.io/;
+worker-src 'none';
+#set
+
+
+/bin/bwrap --ro-bind /usr /usr --ro-bind /lib /lib --ro-bind-try /lib64 /lib64 --ro-bind /bin /bin --ro-bind /sbin /sbin --dir /var --ro-bind-try /var/www /var/www --dir /tmp --proc /proc --symlink../tmp var/tmp --dev /dev --ro-bind-try /etc/localtime /etc/localtime --ro-bind-try /etc/ld.so.cache /etc/ld.so.cache --ro-bind-try /etc/resolv.conf /etc/resolv.conf --ro-bind-try /etc/ssl /etc/ssl --ro-bind-try /etc/pki /etc/pki --ro-bind-try /etc/man_db.conf /etc/man_db.conf --ro-bind-try $HOMEDIR $HOMEDIR --bind-try /var/lib/mysql/mysql.sock /var/lib/mysql/mysql.sock --bind-try /home/mysql/mysql.sock /home/mysql/mysql.sock --bind-try /tmp/mysql.sock /tmp/mysql.sock  --bind-try /run/mysqld/mysqld.sock /run/mysqld/mysqld.sock --bind-try /var/run/mysqld/mysqld.sock /var/run/mysqld/mysqld.sock --unshare-all --share-net --die-with-parent --dir /run/user/$UID ‘$PASSWD 65534’ ‘$GROUP 65534’
+
+/bin/bwrap --ro-bind /usr /usr --ro-bind /lib /lib --ro-bind-try /lib64 /lib64 --ro-bind /bin /bin --ro-bind /sbin /sbin --dir /var --ro-bind-try /var/www /var/www --dir /tmp --proc /proc --symlink../tmp var/tmp --dev /dev --ro-bind-try /etc/localtime /etc/localtime --ro-bind-try /etc/ld.so.cache /etc/ld.so.cache --ro-bind-try /etc/resolv.conf /etc/resolv.conf --ro-bind-try /etc/ssl /etc/ssl --ro-bind-try /etc/pki /etc/pki --ro-bind-try /etc/man_db.conf /etc/man_db.conf --ro-bind-try $HOMEDIR $HOMEDIR --bind-try /var/lib/mysql/mysql.sock /var/lib/mysql/mysql.sock --bind-try /home/mysql/mysql.sock /home/mysql/mysql.sock --bind-try /tmp/mysql.sock /tmp/mysql.sock  --bind-try /run/mysqld/mysqld.sock /run/mysqld/mysqld.sock --bind-try /var/run/mysqld/mysqld.sock /var/run/mysqld/mysqld.sock --unshare-all --share-net --die-with-parent --dir /run/user/$UID ‘$PASSWD 65534’ ‘$GROUP 65534’
+
+
+
+Watches established.
+2020-08-19 07:42:42.122691 [NOTICE] [LocalWorker::workerExec] VHost:_AdminVHost suExec check uid 910 gid 65534 setuidmode 2.
+2020-08-19 07:42:42.122726 [NOTICE] [LocalWorker::workerExec] Config[AdminPHP]: suExec uid -1 gid -1 cmd /usr/local/lsws/admin/fcgi-bin/admin_php -c ../conf/php.ini, final uid 910 gid 65534.
+2020-08-19 07:42:42.123328 [NOTICE] [AdminPHP] add child process pid: 23564
+2020-08-19 07:42:46.603000 [INFO] RewriteFile [/var/www/vhosts/apollo-auto.com/html/wp-content/.htaccess] parsed, return 0.
+2020-08-19 07:42:46.603842 [INFO] Invalid rewrite directive: <Files ~ "(\.php)$">
+2020-08-19 07:42:46.603856 [INFO] Rewrite directive: <IfModule mod_version.c> bypassed.
+2020-08-19 07:42:46.603861 [INFO] Invalid rewrite directive: <IfVersion < 2.4>
+2020-08-19 07:42:46.603865 [INFO] Invalid rewrite directive: Order allow,deny
+2020-08-19 07:42:46.603870 [INFO] Invalid rewrite directive: Deny from all
+2020-08-19 07:42:46.603874 [INFO] Invalid rewrite directive: </IfVersion>
+2020-08-19 07:42:46.603878 [INFO] Invalid rewrite directive: <IfVersion >= 2.4>
+2020-08-19 07:42:46.603883 [INFO] Invalid rewrite directive: Require all denied
+2020-08-19 07:42:46.603887 [INFO] Invalid rewrite directive: </IfVersion>
+2020-08-19 07:42:46.603892 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.603896 [INFO] Rewrite directive: <IfModule !mod_version.c> bypassed.
+2020-08-19 07:42:46.603900 [INFO] Rewrite directive: <IfModule !mod_authz_core.c> bypassed.
+2020-08-19 07:42:46.603905 [INFO] Invalid rewrite directive: Order allow,deny
+2020-08-19 07:42:46.603909 [INFO] Invalid rewrite directive: Deny from all
+2020-08-19 07:42:46.603913 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.603917 [INFO] Rewrite directive: <IfModule mod_authz_core.c> bypassed.
+2020-08-19 07:42:46.603922 [INFO] Invalid rewrite directive: Require all denied
+2020-08-19 07:42:46.603926 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.603930 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.603934 [INFO] Invalid rewrite directive: </Files>
+2020-08-19 07:42:46.603939 [INFO] Invalid rewrite directive: <Files ~ "^((index|piwik|matomo)\.php)$">
+2020-08-19 07:42:46.603943 [INFO] Rewrite directive: <IfModule mod_version.c> bypassed.
+2020-08-19 07:42:46.603947 [INFO] Invalid rewrite directive: <IfVersion < 2.4>
+2020-08-19 07:42:46.603951 [INFO] Invalid rewrite directive: Order allow,deny
+2020-08-19 07:42:46.603956 [INFO] Invalid rewrite directive: Allow from all
+2020-08-19 07:42:46.603960 [INFO] Invalid rewrite directive: </IfVersion>
+2020-08-19 07:42:46.603964 [INFO] Invalid rewrite directive: <IfVersion >= 2.4>
+2020-08-19 07:42:46.603968 [INFO] Invalid rewrite directive: Require all granted
+2020-08-19 07:42:46.603972 [INFO] Invalid rewrite directive: </IfVersion>
+2020-08-19 07:42:46.603977 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.603981 [INFO] Rewrite directive: <IfModule !mod_version.c> bypassed.
+2020-08-19 07:42:46.603985 [INFO] Rewrite directive: <IfModule !mod_authz_core.c> bypassed.
+2020-08-19 07:42:46.603989 [INFO] Invalid rewrite directive: Order allow,deny
+2020-08-19 07:42:46.603994 [INFO] Invalid rewrite directive: Allow from all
+2020-08-19 07:42:46.603998 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.604002 [INFO] Rewrite directive: <IfModule mod_authz_core.c> bypassed.
+2020-08-19 07:42:46.604006 [INFO] Invalid rewrite directive: Require all granted
+2020-08-19 07:42:46.604010 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.604014 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.604018 [INFO] Invalid rewrite directive: </Files>
+2020-08-19 07:42:46.604023 [INFO] Rewrite directive: <IfModule mod_mime.c> bypassed.
+2020-08-19 07:42:46.604027 [INFO] Invalid rewrite directive: AddHandler text/html .html
+2020-08-19 07:42:46.604031 [INFO] Invalid rewrite directive: AddHandler text/html .htm
+2020-08-19 07:42:46.604036 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.604041 [INFO] RewriteFile [/var/www/vhosts/apollo-auto.com/html/wp-content/plugins/matomo/.htaccess] parsed, return 0.
+2020-08-19 07:42:46.604509 [INFO] Rewrite directive: <IfModule mod_mime.c> bypassed.
+2020-08-19 07:42:46.604516 [INFO] Invalid rewrite directive: AddHandler text/html .html
+2020-08-19 07:42:46.604520 [INFO] Invalid rewrite directive: AddHandler text/html .htm
+2020-08-19 07:42:46.604525 [INFO] Rewrite directive: </IfModule> bypassed.
+2020-08-19 07:42:46.604529 [INFO] RewriteFile [/var/www/vhosts/apollo-auto.com/html/wp-content/plugins/matomo/app/.htaccess] parsed, return 0.
+2020-08-19 07:42:48.182496 [INFO] RewriteFile [/var/www/vhosts/apollo-auto.com/html/wp-content/.htaccess] parsed, return 0.

@@ -16,6 +16,10 @@ services:
       #optional enviromental varibles
         - TZ=${TZ}
         - VHOST_CRON_ENABLE=true
+        - WATCHMEDO_ENABLE=true
+        - XS_VHOST_FIX_PERMISSIONS=true
+        - XS_VHOST_FIX_PERMISSIONS_FOLDERS=true
+        - XS_VHOST_FIX_PERMISSIONS_FILES=true
       restart: always
       sysctls:
         - net.ipv6.conf.all.disable_ipv6=${SYSCTL_IPV6_DISABLED:-0}

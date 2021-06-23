@@ -5,9 +5,9 @@
 # Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
 ################################################################################
 
-if [ -f /xshok-fix-permissions.sh ] ; then
-  echo "Launching fix-permissions"
-  bash /xshok-fix-permissions.sh
+if [ -f /xshok-vhost-fix-permissions.sh ] ; then
+  echo "Launching xshok-vhost-fix-permissions.sh"
+  bash /xshok-vhost-fix-permissions.sh
   #run once every 7 days
   sleep 7d
 fi
