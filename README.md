@@ -31,11 +31,16 @@
 * Outputs platform information on start
 
 # VHOST_FIX_PERMISSIONS (enabled by default)
-## Fix the vhosts folder and file perssions of the vhosts html directory
+## Fix the vhosts folder and file permissions of the vhosts html directory
+## will only run once per 24hours in default settings
 * set VHOST_FIX_PERMISSIONS to false to disable, enabled by default
-* set XS_VHOST_FIX_PERMISSIONS_FOLDERS to false to disable fixing folder permissions, enabled by default
-* set XS_VHOST_FIX_PERMISSIONS_FILES to false to disable fixing file permissions, enabled by default
-* set XS_VHOST_FIX_PERMISSIONS_FOLDERS to false to disable, enabled by default
+* set VHOST_FIX_PERMISSIONS_FOLDERS to false to disable fixing folder permissions, enabled by default
+* set VHOST_FIX_PERMISSIONS_FILES to false to disable fixing file permissions, enabled by default
+* set VHOST_FIX_PERMISSIONS_FOLDERS_FORCE set to true to force folder fixing, disabled by default
+* set VHOST_FIX_PERMISSIONS_FILES_FORCE set to true to force file fixing, disabled by default
+* set VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS set to X hours to only fix folders after X hours, default 24
+* set VHOST_FIX_PERMISSIONS_FILE_INTERVAL_HOURS set to X hours to only fix files after X hours, default 24
+
 
 # VHOST_CRON (disabled by default)
 ## generate cron from cron files located in vhost/cron (hourly)

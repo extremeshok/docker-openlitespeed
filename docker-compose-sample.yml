@@ -20,6 +20,13 @@ services:
         - VHOST_FIX_PERMISSIONS=true
         - VHOST_FIX_PERMISSIONS_FOLDERS=true
         - VHOST_FIX_PERMISSIONS_FILES=true
+        - VHOST_FIX_PERMISSIONS=true
+        - VHOST_FIX_PERMISSIONS_FOLDERS=true
+        - VHOST_FIX_PERMISSIONS_FILES=true
+        - VHOST_FIX_PERMISSIONS_FOLDERS_FORCE=false
+        - VHOST_FIX_PERMISSIONS_FILES_FORCE=false
+        - VHOST_FIX_PERMISSIONS_FOLDERS_INTERVAL_HOURS=24
+        - VHOST_FIX_PERMISSIONS_FILE_INTERVAL_HOURS=24
       restart: always
       sysctls:
         - net.ipv6.conf.all.disable_ipv6=${SYSCTL_IPV6_DISABLED:-0}
