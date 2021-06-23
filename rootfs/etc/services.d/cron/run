@@ -5,17 +5,25 @@
 # Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
 ################################################################################
 
+# Runs cron every 1 minute
+# Generates a new vhost cron every 15mins
+
 while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; do
 	echo "Waiting for OpenLiteSpeed to start"
   sleep 10s
 done
 
-if [ -f /xshok-vhost-generate-cron.sh ] ; then
-  echo "Launching generate-vhost-cron"
-  bash /xshok-vhost-generate-cron.sh
-fi
-
+runcount=0
 while true ; do
+  if [ "$runcount" -eq 0 ] || [ "$runcount" -eq 15 ] ; then
+    if [ -f /xshok-vhost-generate-cron.sh ] ; then
+      echo "Launching generate-vhost-cron"
+      bash /xshok-vhost-generate-cron.sh
+    fi
+    runcount=1
+  else
+    (( runcount++ ))
+  fi
   cron -f
   sleep 60s
 done

@@ -11,6 +11,7 @@
 * Ubuntu LTS with S6
 * Will detect and apply new ssl certs automatically (WATCHMEDO_CERTS_ENABLE)
 * cron (/etc/cron.d) enabled for scheduling tasks, run as user nobody
+* cron runs every 1 minute, and will generate a new vhost cron every 15mins *if vhost_cron is enabled*
 * Preinstalled IP2Location DB , updated monthly on start (IP2LOCATION-LITE-DB1.IPV6.BIN from https://lite.ip2location.com)
 * IP2Location running in Shared Memory DB Cache
 * Optimized OpenLiteSpeed configs
@@ -40,6 +41,8 @@
 ## generate cron from cron files located in vhost/cron (hourly)
 * set VHOST_CRON to true to enable, disabled by default
 * finds all vhost/cron files and places them in the /etc/cron.d/ , runs hourly
+* ignores  *.readme *.disabled *.disable *.txt *.sample files
+* cron runs every 1 minute, and will generate a new vhost cron every 15mins
 * Place cron files in **/var/www/vhosts/fqdn.com/cron** , see example **/var/www/vhosts/localhost/cron/example**
 
 # VHOST_MONITOR_CERTS (enabled by default)

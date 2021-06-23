@@ -7,6 +7,8 @@
 #
 # Generate cron.d files from cron files located in the vhost/vhost_name/cron dirs
 #
+# Ignores  *.readme *.disabled *.disable *.txt *.sample
+#
 # Set VHOST_CRON to "no" to disable
 #
 #################################################################################
@@ -51,7 +53,7 @@ if [ "${XS_VHOST_CRON}" == "yes" ] || [ "${XS_VHOST_CRON}" == "true" ] || [ "${X
 
                     echo "Generated: ${filtered_vhost}-${filtered_cron_file_name}"
 
-                done < <(find "${my_vhost_dir}/cron" -mindepth 1 -maxdepth 1 -type f -print0)  #files
+                done < <(find "${my_vhost_dir}/cron" -mindepth 1 -maxdepth 1 -not -iname "*.readme" -not -iname "*.disabled" -not -iname "*.disable" -not -iname "*.txt" -not -iname "*.sample" -type f -print0)  #files
             fi
         done < <(find "${vhost_dir}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
         echo ""
