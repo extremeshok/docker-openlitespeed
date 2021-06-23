@@ -18,11 +18,10 @@ shopt -s nocaseglob
 
 XS_VHOST_DIR=${VHOST_DIR:-/var/www/vhosts}
 
+XS_VHOST_CRON=${VHOST_CRON:-no}
+
 TMP_CRON_DIR="/tmp/xs_cron"
 CRON_DIR="/etc/cron.d"
-
-# automatic cron generation
-XS_VHOST_CRON=${VHOST_CRON:-no}
 
 ##### Generate vhost cron on start
 if [ "${XS_VHOST_CRON,,}" == "yes" ] || [ "${XS_VHOST_CRON,,}" == "true" ] || [ "${XS_VHOST_CRON,,}" == "on" ] || [ "${XS_VHOST_CRON}" == "1" ] ; then
