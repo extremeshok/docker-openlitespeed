@@ -5,13 +5,10 @@
 # Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
 ################################################################################
 #
-# Generate cron.d files from cron files located in the vhost/vhost_name/cron dirs
+# Restart openlitespeed when changes to the vhost/*/cert dirs are detected
+# when a chnage is detected, it will restart openlitespeed after waiting for 300seconds
+# requires watchmedo which is provided by python3-watchdog
 #
-# Set VHOST_MONITOR_CERT_UPDATES to "no" to disable
-#
-# restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected
-# when a chnage is detected, it will restart litespeed after waiting for 300seconds
-# requires python3-watchdog
 #################################################################################
 
 ## enable case insensitve matching
