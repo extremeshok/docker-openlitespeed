@@ -11,7 +11,7 @@ shopt -s nocaseglob
 if [ -d "/var/www/vhosts" ] ; then
 
   while IFS= read -r -d '' my_vhost_dir; do
-    echo "Fixing vhost permissions : folders"
+    echo "Fixing vhost folder permissions : ${my_vhost_dir}"
     if [ -d "${my_vhost_dir}/html" ] ; then
       find "${my_vhost_dir}/html" -type d -exec chown nobody:nogroup {} \;
       find "${my_vhost_dir}/html" -type d -exec chmod 0775 {} \;
@@ -27,7 +27,7 @@ fi
 if [ -d "/var/www/vhosts" ] ; then
 
   while IFS= read -r -d '' my_vhost_dir; do
-    echo "Fixing vhost permissions : files"
+    echo "Fixing vhostfile permissions : ${my_vhost_dir}"
     if [ -d "${my_vhost_dir}/html" ] ; then
       find "${my_vhost_dir}/html" -type f -exec chown nobody:nogroup {} \;
       find "${my_vhost_dir}/html" -type f -exec chmod 0664 {} \;
