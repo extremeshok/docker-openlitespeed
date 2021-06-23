@@ -17,7 +17,7 @@ runcount=0
 while true ; do
   if [ "$runcount" -eq 0 ] || [ "$runcount" -eq 15 ] ; then
     if [ -f /xshok-vhost-generate-cron.sh ] ; then
-      echo "Launching generate-vhost-cron"
+      echo "Launching xshok-vhost-generate-cron.sh"
       bash /xshok-vhost-generate-cron.sh
     fi
     runcount=1

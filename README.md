@@ -16,7 +16,7 @@
 * IP2Location running in Shared Memory DB Cache
 * Optimized OpenLiteSpeed configs
 * Optimised HTTP Headers for Security (Content Security Policy (CSP), Access-Control-Allow-Methods, Content-Security-Policy, Strict-Transport-Security, X-Content-Type-Options, X-DNS-Prefetch-Control, X-Frame-Options, X-XSS-Protection)
-* OpenLiteSpeed installed via github releases
+* OpenLiteSpeed installed via github releases (always newer than the repo)
 * OpenLiteSpeed Repository used for lsphp
 * IONICE set to -10
 * Low memory usage

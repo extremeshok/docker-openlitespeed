@@ -28,12 +28,12 @@ if [ ! -d  "/var/www/vhosts/localhost/" ] ; then
 fi
 
 if [ ! -f  "/var/www/vhosts/localhost/certs/privkey.pem" ] || [ ! -f  "/var/www/vhosts/localhost/certs/fullchain.pem" ] ; then
-  echo "Generating default certificate and key for localhost"
+  echo "xshok-init-post : Generating default certificate and key for localhost"
   openssl req -new -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -out /var/www/vhosts/localhost/certs/fullchain.pem -keyout  /var/www/vhosts/localhost/certs/privkey.pem -subj "/C=RO/ST=Bucharest/L=Bucharest/O=IT/CN=localhost"
 fi
 
 if [ ! -f "/usr/local/lsws/geoip/$(date +%B).update" ] && [ -d "/usr/local/lsws/geoip" ] ; then
-  echo "**** Updating IP2Location Database ****"
+  echo "xshok-init-post : Updating IP2Location Database"
   curl --silent -o /tmp/ip2location.zip -L https://download.ip2location.com/lite/IP2LOCATION-LITE-DB1.IPV6.BIN.ZIP
   unzip /tmp/ip2location.zip -d /tmp/ip2location
   mv -f /tmp/ip2location/* /usr/local/lsws/geoip

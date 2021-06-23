@@ -22,17 +22,18 @@ if [ "${XS_VHOST_MONITOR_CERTS,,}" == "yes" ] || [ "${XS_VHOST_MONITOR_CERTS,,}"
     vhost_dir="$(realpath -s "${XS_VHOST_DIR}")"
     if [ -d "${vhost_dir}" ] ; then
       while ! /usr/local/lsws/bin/lswsctrl status | grep -q "litespeed is running with PID" ; do
-      	echo "Waiting for OpenLiteSpeed to start"
+      	echo "xshok-vhost-monitor-certs : Waiting for OpenLiteSpeed to start"
         sleep 30s
       done
 
       while true ; do
         #watchmedo shell-command --ignore-patterns="${vhost_dir}/*/acme/*;${vhost_dir}/*/dbinfo/*;${vhost_dir}/*/html/*;${vhost_dir}/*/logs/*;${vhost_dir}/*/sql/*;${vhost_dir}/*/logs/*;${vhost_dir}/*/backup/*;" --patterns="${vhost_dir}/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 30 /var/www/vhosts --command='echo "${watch_src_path} - ${watch_dest_path} - ${watch_event_type} - ${watch_object}"'
-        watchmedo shell-command --ignore-patterns="${vhost_dir}/local.domain/*;${vhost_dir}/local/*;${vhost_dir}/localhost/*;${vhost_dir}/localdomain/*;${vhost_dir}/sample/*;${vhost_dir}/example/*;${vhost_dir}/*/acme/*;${vhost_dir}/*/dbinfo/*;${vhost_dir}/*/html/*;${vhost_dir}/*/logs/*;${vhost_dir}/*/sql/*;${vhost_dir}/*/logs/*;${vhost_dir}/*/backup/*;" --patterns="${vhost_dir}/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 300 "${vhost_dir}" --command='echo "${watch_src_path} : ${watch_event_type}, sleeping for 300s" && sleep 300 && echo "restarting litespeed" && /usr/local/lsws/bin/lswsctrl restart'
-        echo "watchmedo quit, sleeping for 60s and then reloading"
+        watchmedo shell-command --ignore-patterns="${vhost_dir}/local.domain/*;${vhost_dir}/local/*;${vhost_dir}/localhost/*;${vhost_dir}/localdomain/*;${vhost_dir}/sample/*;${vhost_dir}/example/*;${vhost_dir}/*/acme/*;${vhost_dir}/*/dbinfo/*;${vhost_dir}/*/html/*;${vhost_dir}/*/logs/*;${vhost_dir}/*/sql/*;${vhost_dir}/*/logs/*;${vhost_dir}/*/backup/*;" --patterns="${vhost_dir}/*/certs/*.pem" --ignore-directories --recursive --wait --drop --timeout 300 "${vhost_dir}" --command='echo "xshok-vhost-monitor-certs : ${watch_src_path} : ${watch_event_type}, sleeping for 300s" && sleep 300 && echo "xshok-vhost-monitor-certs : restarting litespeed" && /usr/local/lsws/bin/lswsctrl restart'
+        echo "xshok-vhost-monitor-certs : watchmedo quit, sleeping for 60s and then reloading"
         sleep 60s
       done
     else
-    echo "ERROR: ${vhost_dir} is not a directory"
+      echo "ERROR: xshok-vhost-monitor-certs : ${vhost_dir} is not a directory"
+      exit 1
   fi
 fi

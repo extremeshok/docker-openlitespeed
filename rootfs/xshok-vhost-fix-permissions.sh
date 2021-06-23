@@ -28,7 +28,7 @@ if [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS
     ###### Fix vhost permissions : folders ######
     if [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS,,}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS,,}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FOLDERS}" == "1" ] ; then
       while IFS= read -r -d '' my_vhost_dir; do
-        echo "Fixing vhost folder permissions : ${my_vhost_dir}"
+        echo "xshok-vhost-fix-permissions : fixing folder : ${my_vhost_dir}"
         if [ -d "${my_vhost_dir}/html" ] ; then
           find "${my_vhost_dir}/html" -type d -exec chown nobody:nogroup {} \;
           find "${my_vhost_dir}/html" -type d -exec chmod 0775 {} \;
@@ -43,14 +43,16 @@ if [ "${XS_VHOST_FIX_PERMISSIONS,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS
     ###### Fix vhost permissions : files ######
     if [ "${XS_VHOST_FIX_PERMISSIONS_FILES,,}" == "yes" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES,,}" == "true" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES,,}" == "on" ] || [ "${XS_VHOST_FIX_PERMISSIONS_FILES}" == "1" ] ; then
       while IFS= read -r -d '' my_vhost_dir; do
-        echo "Fixing vhostfile permissions : ${my_vhost_dir}"
+        echo "xshok-vhost-fix-permissions : fixing files in : ${my_vhost_dir}"
         if [ -d "${my_vhost_dir}/html" ] ; then
           find "${my_vhost_dir}/html" -type f -exec chown nobody:nogroup {} \;
           find "${my_vhost_dir}/html" -type f -exec chmod 0664 {} \;
         fi
       done < <(find "${vhost_dir}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
     fi
+
   else
-    echo "ERROR: ${vhost_dir} is not a directory"
+    echo "ERROR: xshok-vhost-fix-permissions : ${vhost_dir} is not a directory"
+    exit 1
   fi
 fi
