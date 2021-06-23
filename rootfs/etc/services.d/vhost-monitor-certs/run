@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+################################################################################
+# This is property of eXtremeSHOK.com
+# You are free to use, modify and distribute, however you may not remove this notice.
+# Copyright (c) Adrian Jon Kriel :: admin@extremeshok.com
+################################################################################
+
+if [ -f /xshok-vhost-monitor-certs.sh ] ; then
+  echo "Launching xshok-vhost-monitor-certs.sh"
+  bash /xshok-vhost-monitor-certs.sh
+  #run once every 7 days
+  sleep 7d
+fi

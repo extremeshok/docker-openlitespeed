@@ -26,7 +26,7 @@
 * default configs will be added if the config dir is empty
 * OWASP modsecurity rules enabled
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
-* xshok-vhost-fix-permissions, xshok-vhost-generate-cron is non-blocking (runs parallel)
+* xshok-vhost-fix-permissions, xshok-vhost-generate-cron and xshok-vhost-monitor-certs are all non-blocking (runs parallel)
 * Outputs platform information on start
 
 # VHOST_FIX_PERMISSIONS (enabled by default)
@@ -36,11 +36,16 @@
 * set XS_VHOST_FIX_PERMISSIONS_FILES to false to disable fixing file permissions, enabled by default
 * set XS_VHOST_FIX_PERMISSIONS_FOLDERS to false to disable, enabled by default
 
-# VHOST_CRON_ENABLE (disabled by default)
+# VHOST_CRON (disabled by default)
 ## generate cron from cron files located in vhost/cron (hourly)
-* set VHOST_CRON_ENABLE to true to enable, disabled by default
+* set VHOST_CRON to true to enable, disabled by default
 * finds all vhost/cron files and places them in the /etc/cron.d/ , runs hourly
 * Place cron files in **/var/www/vhosts/fqdn.com/cron** , see example **/var/www/vhosts/localhost/cron/example**
+
+# VHOST_MONITOR_CERTS (enabled by default)
+## Gracefully restarts openlitespeed to apply certificate updates, will only restart once every 300s
+* set VHOST_MONITOR_CERTS to false to disable, enabled by default
+* monitors /var/www/vhosts/*/certs, looking for changes (only detects *.pem)
 
 # Included Modules:
 * cache
