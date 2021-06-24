@@ -104,9 +104,9 @@ RUN echo "**** Create symbolic links ****" \
 RUN echo "**** Correct permissions ****" \
   && chown -R lsadm:lsadm /usr/local/lsws \
   && chown -R nobody:nogroup /usr/local/lsws/logs/ \
-  && chmod +x /etc/services.d/*/run \
-  && chmod +x /etc/services.d/*/finish \
-  && chmod +x /xshok-*.sh
+  && chmod 755 /etc/services.d/*/run \
+  && chmod 755 /etc/services.d/*/finish \
+  && chmod 755 /xshok-*.sh
 
 RUN echo "**** Ensure there is no admin password ****" \
   && rm -f /etc/openlitespeed/admin/htpasswd
