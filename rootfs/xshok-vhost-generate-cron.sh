@@ -20,6 +20,12 @@ XS_VHOST_DIR=${VHOST_DIR:-/var/www/vhosts}
 
 XS_VHOST_CRON=${VHOST_CRON:-no}
 
+#legacy support
+XS_VHOST_CRON_ENABLE=${VHOST_CRON_ENABLE:-no}
+if [ "${XS_VHOST_CRON_ENABLE,,}" != "no" ] ; then
+  XS_VHOST_CRON=$XS_VHOST_CRON_ENABLE
+fi
+
 TMP_CRON_DIR="/tmp/xs_cron"
 CRON_DIR="/etc/cron.d"
 
@@ -48,7 +54,6 @@ if [ "${XS_VHOST_CRON,,}" == "yes" ] || [ "${XS_VHOST_CRON,,}" == "true" ] || [ 
                 done < <(find "${my_vhost_dir}/cron" -mindepth 1 -maxdepth 1 -not -iname "*.readme" -not -iname "*.disabled" -not -iname "*.disable" -not -iname "*.txt" -not -iname "*.sample" -type f -print0)  #files
             fi
         done < <(find "${vhost_dir}" -mindepth 1 -maxdepth 1 -type d -print0)  #dirs
-        echo ""
     else
         echo "ERROR: xshok-vhost-generate-cron : ${vhost_dir} is not a directory"
         exit 1
