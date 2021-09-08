@@ -29,6 +29,7 @@
 * Restart openlitespeed when changes to the vhost/domain.com/cert dirs are detected, ie ssl certificate is updated
 * xshok-vhost-fix-permissions, xshok-vhost-generate-cron and xshok-vhost-monitor-certs are all non-blocking (runs parallel)
 * Outputs platform information on start
+* AIO support
 
 # VHOST_FIX_PERMISSIONS (enabled by default)
 ## Fix the vhosts folder and file permissions of the vhosts html directory
